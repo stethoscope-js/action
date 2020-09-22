@@ -1,3 +1,10 @@
+# [v1.0.1](https://github.com/stethoscope-js/action/compare/v1.0.0...v1.0.1) (2020-09-22)
+
+## ♻️ Updates
+- [`e8ef2ae`](https://github.com/stethoscope-js/action/commit/e8ef2ae)  Use keys of config object
+
+- [`91b9f58`](https://github.com/stethoscope-js/action/commit/91b9f58)  Rename config to integrations
+
 # v1.0.0 (2020-09-22)
 
 ## ✨ New features
