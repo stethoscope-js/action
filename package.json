@@ -38,7 +38,8 @@
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/github": "^4.0.0",
-    "@koj/config": "^1.2.3"
+    "@koj/config": "^1.2.3",
+    "@stethoscope-js/integrations": "^1.1.1"
   },
   "jest": {
     "roots": [
