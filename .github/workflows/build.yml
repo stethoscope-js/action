@@ -30,6 +30,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4.4.1
         with:
           commit_message: ":rocket: Deploy new version [skip ci]"
-          commit_user_name: Koj Bot
-          commit_user_email: bot@koj.co
-          commit_author: Koj Bot <bot@koj.co>
+          commit_user_name: Stethoscoper
+          commit_user_email: stethoscope-js@anandchowdhary.com
+          commit_author: Stethoscoper <stethoscope-js@anandchowdhary.com>
