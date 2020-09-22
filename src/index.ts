@@ -2,14 +2,23 @@ import { getInput, setFailed } from "@actions/core";
 import { cosmicSync, config } from "@anandchowdhary/cosmic";
 import {
   spotifyDaily,
+  spotifySummary,
   rescueTimeDaily,
+  rescueTimeSummary,
   lastFmDaily,
+  lastFmSummary,
   pocketCastsDaily,
+  pocketCastsSummary,
   wakatimeDaily,
+  wakatimeSummary,
   clockifyDaily,
+  clockifySummary,
   googleFitDaily,
+  googleFitSummary,
   ouraRingDaily,
+  ouraRingSummary,
   goodreadsDaily,
+  goodreadsSummary,
 } from "@stethoscope-js/integrations";
 import simpleGit from "simple-git";
 import { readdir, pathExists, lstat, ensureFile, writeFile } from "fs-extra";
@@ -37,6 +46,16 @@ export const run = async () => {
   if (items.includes("googleFit")) await googleFitDaily();
   if (items.includes("ouraRing")) await ouraRingDaily();
   if (items.includes("goodreads")) await goodreadsDaily();
+
+  if (items.includes("spotify")) await spotifySummary();
+  if (items.includes("rescueTime")) await rescueTimeSummary();
+  if (items.includes("pocketCasts")) await lastFmSummary();
+  if (items.includes("wakatime")) await pocketCastsSummary();
+  if (items.includes("lastFm")) await wakatimeSummary();
+  if (items.includes("clockify")) await clockifySummary();
+  if (items.includes("googleFit")) await googleFitSummary();
+  if (items.includes("ouraRing")) await ouraRingSummary();
+  if (items.includes("goodreads")) await goodreadsSummary();
 
   const categories = await readdir(join(".", "data"));
   for await (const category of categories) {
