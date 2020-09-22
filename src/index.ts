@@ -19,6 +19,8 @@ const token = getInput("token") || process.env.GH_PAT || process.env.GITHUB_TOKE
 
 export const run = async () => {
   if (!token) throw new Error("GitHub token not found");
+  if (!config("daily")) return console.log("Daily config not found", config("daily"));
+
   if (config("daily").includes("spotify")) await spotifyDaily();
   if (config("daily").includes("rescueTime")) await rescueTimeDaily();
   if (config("daily").includes("pocketCasts")) await lastFmDaily();
