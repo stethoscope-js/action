@@ -1,25 +1,31 @@
-import { getInput, debug, setFailed, setOutput } from "@actions/core";
-import { getOctokit } from "@actions/github";
+import { getInput, setFailed } from "@actions/core";
+import { cosmicSync, config } from "@anandchowdhary/cosmic";
+import {
+  spotifyDaily,
+  rescueTimeDaily,
+  lastFmDaily,
+  pocketCastsDaily,
+  wakatimeDaily,
+  clockifyDaily,
+  googleFitDaily,
+  ouraRingDaily,
+  goodreadsDaily,
+} from "@stethoscope-js/integrations";
+cosmicSync("stethoscope");
 
-const token =
-  getInput("token") || process.env.GH_PAT || process.env.GITHUB_TOKEN;
+const token = getInput("token") || process.env.GH_PAT || process.env.GITHUB_TOKEN;
 
 export const run = async () => {
   if (!token) throw new Error("GitHub token not found");
-  const octokit = getOctokit(token);
-
-  const ms: string = getInput("milliseconds");
-  debug(`Waiting ${ms} milliseconds ...`);
-
-  debug(new Date().toTimeString());
-  await wait(parseInt(ms, 10));
-  debug(new Date().toTimeString());
-
-  setOutput("time", new Date().toTimeString());
-};
-
-export const wait = (milliseconds: number) => {
-  return new Promise((resolve) => setTimeout(() => resolve(), milliseconds));
+  if (config("daily").includes("spotify")) await spotifyDaily();
+  if (config("daily").includes("rescueTime")) await rescueTimeDaily();
+  if (config("daily").includes("pocketCasts")) await lastFmDaily();
+  if (config("daily").includes("wakatime")) await pocketCastsDaily();
+  if (config("daily").includes("lastFm")) await wakatimeDaily();
+  if (config("daily").includes("clockify")) await clockifyDaily();
+  if (config("daily").includes("googleFit")) await googleFitDaily();
+  if (config("daily").includes("ouraRing")) await ouraRingDaily();
+  if (config("daily").includes("goodreads")) await goodreadsDaily();
 };
 
 run()
