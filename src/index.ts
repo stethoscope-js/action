@@ -17,19 +17,21 @@ const git = simpleGit();
 cosmicSync("stethoscope");
 const token = getInput("token") || process.env.GH_PAT || process.env.GITHUB_TOKEN;
 
+const items = Object.keys(config("config") || {});
+
 export const run = async () => {
   if (!token) throw new Error("GitHub token not found");
-  if (!config("daily")) return console.log("Daily config not found", config("daily"));
+  if (!items) return console.log("Config not found", items);
 
-  if (config("daily").includes("spotify")) await spotifyDaily();
-  if (config("daily").includes("rescueTime")) await rescueTimeDaily();
-  if (config("daily").includes("pocketCasts")) await lastFmDaily();
-  if (config("daily").includes("wakatime")) await pocketCastsDaily();
-  if (config("daily").includes("lastFm")) await wakatimeDaily();
-  if (config("daily").includes("clockify")) await clockifyDaily();
-  if (config("daily").includes("googleFit")) await googleFitDaily();
-  if (config("daily").includes("ouraRing")) await ouraRingDaily();
-  if (config("daily").includes("goodreads")) await goodreadsDaily();
+  if (items.includes("spotify")) await spotifyDaily();
+  if (items.includes("rescueTime")) await rescueTimeDaily();
+  if (items.includes("pocketCasts")) await lastFmDaily();
+  if (items.includes("wakatime")) await pocketCastsDaily();
+  if (items.includes("lastFm")) await wakatimeDaily();
+  if (items.includes("clockify")) await clockifyDaily();
+  if (items.includes("googleFit")) await googleFitDaily();
+  if (items.includes("ouraRing")) await ouraRingDaily();
+  if (items.includes("goodreads")) await goodreadsDaily();
 
   await git.addConfig("user.name", "Stethoscoper");
   await git.addConfig("user.email", "stethoscope-js@anandchowdhary.com");
