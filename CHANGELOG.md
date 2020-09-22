@@ -1,3 +1,8 @@
+# [v1.1.1](https://github.com/stethoscope-js/action/compare/v1.1.0...v1.1.1) (2020-09-22)
+
+## 🐛 Bug fixes
+- [`7fef376`](https://github.com/stethoscope-js/action/commit/7fef376)  Remove GitHub token condition
+
 # [v1.1.0](https://github.com/stethoscope-js/action/compare/v1.0.1...v1.1.0) (2020-09-22)
 
 ## ✨ New features
