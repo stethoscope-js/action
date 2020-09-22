@@ -29,12 +29,10 @@ import Dot from "dot-object";
 const dot = new Dot("/");
 const git = simpleGit();
 cosmicSync("stethoscope");
-const token = getInput("token") || process.env.GH_PAT || process.env.GITHUB_TOKEN;
 
 const items = Object.keys(config("integrations") || {});
 
 export const run = async () => {
-  if (!token) throw new Error("GitHub token not found");
   if (!items) return console.log("Config not found", items);
 
   if (items.includes("spotify")) await spotifyDaily();
