@@ -1,3 +1,8 @@
+# [v1.1.0](https://github.com/stethoscope-js/action/compare/v1.0.1...v1.1.0) (2020-09-22)
+
+## ✨ New features
+- [`b2e049e`](https://github.com/stethoscope-js/action/commit/b2e049e)  Generate summaries
+
 # [v1.0.1](https://github.com/stethoscope-js/action/compare/v1.0.0...v1.0.1) (2020-09-22)
 
 ## ♻️ Updates
