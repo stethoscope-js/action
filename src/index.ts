@@ -11,8 +11,10 @@ import {
   ouraRingDaily,
   goodreadsDaily,
 } from "@stethoscope-js/integrations";
-cosmicSync("stethoscope");
+import simpleGit from "simple-git";
+const git = simpleGit();
 
+cosmicSync("stethoscope");
 const token = getInput("token") || process.env.GH_PAT || process.env.GITHUB_TOKEN;
 
 export const run = async () => {
@@ -26,6 +28,12 @@ export const run = async () => {
   if (config("daily").includes("googleFit")) await googleFitDaily();
   if (config("daily").includes("ouraRing")) await ouraRingDaily();
   if (config("daily").includes("goodreads")) await goodreadsDaily();
+
+  await git.addConfig("user.name", "Stethoscoper");
+  await git.addConfig("user.email", "stethoscope-js@anandchowdhary.com");
+  await git.add(".");
+  await git.commit(":card_file_box: Update daily life data [skip ci]");
+  await git.push();
 };
 
 run()
