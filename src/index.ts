@@ -17,7 +17,7 @@ const git = simpleGit();
 cosmicSync("stethoscope");
 const token = getInput("token") || process.env.GH_PAT || process.env.GITHUB_TOKEN;
 
-const items = Object.keys(config("config") || {});
+const items = Object.keys(config("integrations") || {});
 
 export const run = async () => {
   if (!token) throw new Error("GitHub token not found");
