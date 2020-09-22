@@ -36,23 +36,23 @@ export const run = async () => {
   if (!items) return console.log("Config not found", items);
 
   if (items.includes("spotify")) await spotifyDaily();
-  if (items.includes("rescueTime")) await rescueTimeDaily();
-  if (items.includes("pocketCasts")) await lastFmDaily();
+  if (items.includes("rescue-time")) await rescueTimeDaily();
+  if (items.includes("pocket-casts")) await lastFmDaily();
   if (items.includes("wakatime")) await pocketCastsDaily();
-  if (items.includes("lastFm")) await wakatimeDaily();
+  if (items.includes("last-fm")) await wakatimeDaily();
   if (items.includes("clockify")) await clockifyDaily();
-  if (items.includes("googleFit")) await googleFitDaily();
-  if (items.includes("ouraRing")) await ouraRingDaily();
+  if (items.includes("google-fit")) await googleFitDaily();
+  if (items.includes("oura-ring")) await ouraRingDaily();
   if (items.includes("goodreads")) await goodreadsDaily();
 
   if (items.includes("spotify")) await spotifySummary();
-  if (items.includes("rescueTime")) await rescueTimeSummary();
-  if (items.includes("pocketCasts")) await lastFmSummary();
+  if (items.includes("rescue-time")) await rescueTimeSummary();
+  if (items.includes("pocket-casts")) await lastFmSummary();
   if (items.includes("wakatime")) await pocketCastsSummary();
-  if (items.includes("lastFm")) await wakatimeSummary();
+  if (items.includes("last-fm")) await wakatimeSummary();
   if (items.includes("clockify")) await clockifySummary();
-  if (items.includes("googleFit")) await googleFitSummary();
-  if (items.includes("ouraRing")) await ouraRingSummary();
+  if (items.includes("google-fit")) await googleFitSummary();
+  if (items.includes("oura-ring")) await ouraRingSummary();
   if (items.includes("goodreads")) await goodreadsSummary();
 
   const categories = await readdir(join(".", "data"));
