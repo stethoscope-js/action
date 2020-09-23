@@ -1,26 +1,16 @@
 import { setFailed } from "@actions/core";
 import { cosmicSync, config } from "@anandchowdhary/cosmic";
 import {
-  spotifyDaily,
-  spotifySummary,
-  rescueTimeDaily,
-  rescueTimeSummary,
-  lastFmDaily,
-  lastFmSummary,
-  pocketCastsDaily,
-  pocketCastsSummary,
-  wakatimeDaily,
-  wakatimeSummary,
-  clockifyDaily,
-  clockifySummary,
-  googleFitDaily,
-  googleFitSummary,
-  ouraRingDaily,
-  ouraRingSummary,
-  goodreadsDaily,
-  goodreadsSummary,
-  twitterDaily,
-  twitterSummary,
+  Spotify,
+  Rescuetime,
+  LastFm,
+  PocketCasts,
+  Wakatime,
+  Clockify,
+  GoogleFit,
+  OuraRing,
+  Goodreads,
+  Twitter,
 } from "@stethoscope-js/integrations";
 import simpleGit from "simple-git";
 import { readdir, pathExists, lstat, ensureFile, writeFile } from "fs-extra";
@@ -37,28 +27,24 @@ const items = Object.keys(config("integrations") || {});
 export const run = async () => {
   if (!items) return console.log("Config not found", items);
 
-  if (items.includes("spotify")) await spotifyDaily();
-  if (items.includes("rescue-time")) await rescueTimeDaily();
-  if (items.includes("pocket-casts")) await lastFmDaily();
-  if (items.includes("wakatime")) await pocketCastsDaily();
-  if (items.includes("last-fm")) await wakatimeDaily();
-  if (items.includes("clockify")) await clockifyDaily();
-  if (items.includes("google-fit")) await googleFitDaily();
-  if (items.includes("oura-ring")) await ouraRingDaily();
-  if (items.includes("goodreads")) await goodreadsDaily();
-  if (items.includes("twitter")) await twitterDaily();
+  for await (const ClassName of [
+    Spotify,
+    Rescuetime,
+    LastFm,
+    PocketCasts,
+    Wakatime,
+    Clockify,
+    GoogleFit,
+    OuraRing,
+    Goodreads,
+    Twitter,
+  ]) {
+    const integration = new ClassName();
+    if (items.includes(integration.name) && config("integrations")[integration.name].frequency === "daily")
+      await integration.update();
 
-  if (items.includes("spotify")) await spotifySummary();
-  if (items.includes("rescue-time")) await rescueTimeSummary();
-  if (items.includes("pocket-casts")) await lastFmSummary();
-  if (items.includes("wakatime")) await pocketCastsSummary();
-  if (items.includes("last-fm")) await wakatimeSummary();
-  if (items.includes("clockify")) await clockifySummary();
-  if (items.includes("google-fit")) await googleFitSummary();
-  if (items.includes("oura-ring")) await ouraRingSummary();
-  if (items.includes("goodreads")) await goodreadsSummary();
-  if (items.includes("twitter")) await twitterSummary();
-
+    if (items.includes(integration.name)) await integration.summary();
+  }
   const categories = await readdir(join(".", "data"));
   for await (const category of categories) {
     if (
