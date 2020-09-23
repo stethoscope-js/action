@@ -1,3 +1,9 @@
+# [v1.2.1](https://github.com/stethoscope-js/action/compare/v1.2.0...v1.2.1) (2020-09-23)
+
+## ♻️ Updates
+
+- [`b69c9bd`](https://github.com/stethoscope-js/action/commit/b69c9bd)  Use new class-based integrations
+
 # [v1.2.0](https://github.com/stethoscope-js/action/compare/v1.1.2...v1.2.0) (2020-09-23)
 
 ## ✨ New features
