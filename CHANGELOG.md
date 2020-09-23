@@ -1,3 +1,8 @@
+# [v1.2.0](https://github.com/stethoscope-js/action/compare/v1.1.2...v1.2.0) (2020-09-23)
+
+## ✨ New features
+- [`da838fc`](https://github.com/stethoscope-js/action/commit/da838fc)  Release Twitter
+
 # [v1.1.2](https://github.com/stethoscope-js/action/compare/v1.1.1...v1.1.2) (2020-09-22)
 
 ## ♻️ Updates
