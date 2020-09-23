@@ -1,4 +1,4 @@
-import { getInput, setFailed } from "@actions/core";
+import { setFailed } from "@actions/core";
 import { cosmicSync, config } from "@anandchowdhary/cosmic";
 import {
   spotifyDaily,
@@ -19,6 +19,8 @@ import {
   ouraRingSummary,
   goodreadsDaily,
   goodreadsSummary,
+  twitterDaily,
+  twitterSummary,
 } from "@stethoscope-js/integrations";
 import simpleGit from "simple-git";
 import { readdir, pathExists, lstat, ensureFile, writeFile } from "fs-extra";
@@ -44,6 +46,7 @@ export const run = async () => {
   if (items.includes("google-fit")) await googleFitDaily();
   if (items.includes("oura-ring")) await ouraRingDaily();
   if (items.includes("goodreads")) await goodreadsDaily();
+  if (items.includes("twitter")) await twitterDaily();
 
   if (items.includes("spotify")) await spotifySummary();
   if (items.includes("rescue-time")) await rescueTimeSummary();
@@ -54,6 +57,7 @@ export const run = async () => {
   if (items.includes("google-fit")) await googleFitSummary();
   if (items.includes("oura-ring")) await ouraRingSummary();
   if (items.includes("goodreads")) await goodreadsSummary();
+  if (items.includes("twitter")) await twitterSummary();
 
   const categories = await readdir(join(".", "data"));
   for await (const category of categories) {
