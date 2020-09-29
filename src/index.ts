@@ -12,13 +12,14 @@ import {
   Goodreads,
   Twitter,
 } from "@stethoscope-js/integrations";
+import simpleGit from "simple-git";
 import { readdir, pathExists, lstat, ensureFile, writeFile } from "fs-extra";
 import { join } from "path";
-import { execSync } from "child_process";
 import recursiveReaddir from "recursive-readdir";
 import Dot from "dot-object";
 
 const dot = new Dot("/");
+const git = simpleGit();
 cosmicSync("stethoscope");
 
 const items = Object.keys(config("integrations") || {});
@@ -84,14 +85,12 @@ export const run = async () => {
   }
   console.log("Finished generating API endpoints");
 
-  console.log(execSync("git status").toString());
-  // console.log(execSync("git config user.name 'Stethoscoper'").toString());
-  // console.log(execSync("git config user.email 'stethoscope-js@anandchowdhary.com'").toString());
-  // console.log(execSync("git add .").toString());
-  // console.log(execSync("git commit -m ':card_file_box: Update daily life data [skip ci]'").toString());
-  // console.log(execSync("git status").toString());
-  // console.log("Pushing commit");
-  // console.log(execSync("git push").toString());
+  await git.addConfig("user.name", "Stethoscoper");
+  await git.addConfig("user.email", "stethoscope-js@anandchowdhary.com");
+  await git.add(".");
+  await git.commit(":card_file_box: Update daily life data [skip ci]");
+  console.log("Pushing commit");
+  await git.push();
 };
 
 function recursivelyClean1(items: any) {
