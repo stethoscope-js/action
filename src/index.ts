@@ -26,6 +26,7 @@ const items = Object.keys(config("integrations") || {});
 
 export const run = async () => {
   if (!items) return console.log("Config not found", items);
+  console.log("Enabled integrations", items);
 
   for await (const ClassName of [
     Spotify,
@@ -40,7 +41,6 @@ export const run = async () => {
     Twitter,
   ]) {
     const integration = new ClassName();
-    console.log("Enabled integrations", items);
     if (items.includes(integration.name) && config("integrations")[integration.name].frequency === "daily") {
       console.log("Updating", integration.name);
       await integration.update();
@@ -89,6 +89,7 @@ export const run = async () => {
   await git.addConfig("user.email", "stethoscope-js@anandchowdhary.com");
   await git.add(".");
   await git.commit(":card_file_box: Update daily life data [skip ci]");
+  console.log(await git.status());
   console.log("Pushing commit");
   await git.push();
 };
