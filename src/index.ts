@@ -84,13 +84,14 @@ export const run = async () => {
   }
   console.log("Finished generating API endpoints");
 
-  console.log(execSync("git config user.name 'Stethoscoper'").toString());
-  console.log(execSync("git config user.email 'stethoscope-js@anandchowdhary.com'").toString());
-  console.log(execSync("git add .").toString());
-  console.log(execSync("git commit -a -m ':card_file_box: Update daily life data [skip ci]'").toString());
   console.log(execSync("git status").toString());
-  console.log("Pushing commit");
-  console.log(execSync("git push").toString());
+  // console.log(execSync("git config user.name 'Stethoscoper'").toString());
+  // console.log(execSync("git config user.email 'stethoscope-js@anandchowdhary.com'").toString());
+  // console.log(execSync("git add .").toString());
+  // console.log(execSync("git commit -m ':card_file_box: Update daily life data [skip ci]'").toString());
+  // console.log(execSync("git status").toString());
+  // console.log("Pushing commit");
+  // console.log(execSync("git push").toString());
 };
 
 function recursivelyClean1(items: any) {
