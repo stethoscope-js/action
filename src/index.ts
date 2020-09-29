@@ -15,6 +15,7 @@ import {
 import simpleGit from "simple-git";
 import { readdir, pathExists, lstat, ensureFile, writeFile } from "fs-extra";
 import { join } from "path";
+import { execSync } from "child_process";
 import recursiveReaddir from "recursive-readdir";
 import Dot from "dot-object";
 
@@ -85,11 +86,12 @@ export const run = async () => {
   }
   console.log("Finished generating API endpoints");
 
+  console.log(execSync("git status"));
   await git.addConfig("user.name", "Stethoscoper");
   await git.addConfig("user.email", "stethoscope-js@anandchowdhary.com");
   await git.add(".");
   await git.commit(":card_file_box: Update daily life data [skip ci]");
-  console.log(await git.status());
+  console.log(execSync("git status"));
   console.log("Pushing commit");
   await git.push();
 };
