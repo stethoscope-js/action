@@ -40,11 +40,22 @@ export const run = async () => {
     Twitter,
   ]) {
     const integration = new ClassName();
-    if (items.includes(integration.name) && config("integrations")[integration.name].frequency === "daily")
+    console.log("Enabled integrations", items);
+    if (items.includes(integration.name) && config("integrations")[integration.name].frequency === "daily") {
+      console.log("Updating", integration.name);
       await integration.update();
+    } else {
+      console.log("Skipping", integration.name);
+      console.log("  >  Included in integrations?", items.includes(integration.name));
+      console.log("  >  Frequency?", (config("integrations")[integration.name] || {}).frequency);
+    }
 
-    if (items.includes(integration.name)) await integration.summary();
+    if (items.includes(integration.name)) {
+      console.log("Generating summary", integration.name);
+      await integration.summary();
+    }
   }
+  console.log("Generating API endpoints");
   const categories = await readdir(join(".", "data"));
   for await (const category of categories) {
     if (
@@ -72,11 +83,13 @@ export const run = async () => {
       await writeFile(join(".", "data", category, "api.json"), JSON.stringify(items, null, 2));
     }
   }
+  console.log("Finished generating API endpoints");
 
   await git.addConfig("user.name", "Stethoscoper");
   await git.addConfig("user.email", "stethoscope-js@anandchowdhary.com");
   await git.add(".");
   await git.commit(":card_file_box: Update daily life data [skip ci]");
+  console.log("Pushing commit");
   await git.push();
 };
 
