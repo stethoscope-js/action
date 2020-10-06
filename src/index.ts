@@ -84,13 +84,6 @@ export const run = async () => {
     }
   }
   console.log("Finished generating API endpoints");
-
-  await git.addConfig("user.name", "Stethoscoper");
-  await git.addConfig("user.email", "stethoscope-js@anandchowdhary.com");
-  await git.add(".");
-  await git.commit(":card_file_box: Update daily life data [skip ci]");
-  console.log("Pushing commit");
-  await git.push();
 };
 
 function recursivelyClean1(items: any) {
