@@ -1,3 +1,9 @@
+# [v1.2.2](https://github.com/stethoscope-js/action/compare/v1.2.1...v1.2.2) (2020-10-07)
+
+## ♻️ Updates
+
+- [`524a2f4`](https://github.com/stethoscope-js/action/commit/524a2f4)  Sort items recursively
+
 # [v1.2.1](https://github.com/stethoscope-js/action/compare/v1.2.0...v1.2.1) (2020-09-23)
 
 ## ♻️ Updates
