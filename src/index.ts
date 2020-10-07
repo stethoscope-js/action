@@ -1,25 +1,23 @@
 import { setFailed } from "@actions/core";
-import { cosmicSync, config } from "@anandchowdhary/cosmic";
+import { config, cosmicSync } from "@anandchowdhary/cosmic";
 import {
-  Spotify,
-  Rescuetime,
-  LastFm,
-  PocketCasts,
-  Wakatime,
   Clockify,
-  GoogleFit,
-  OuraRing,
   Goodreads,
+  GoogleFit,
+  LastFm,
+  OuraRing,
+  PocketCasts,
+  Rescuetime,
+  Spotify,
   Twitter,
+  Wakatime,
 } from "@stethoscope-js/integrations";
-import simpleGit from "simple-git";
-import { readdir, pathExists, lstat, ensureFile, writeFile } from "fs-extra";
+import Dot from "dot-object";
+import { ensureFile, lstat, pathExists, readdir, writeFile } from "fs-extra";
 import { join } from "path";
 import recursiveReaddir from "recursive-readdir";
-import Dot from "dot-object";
 
 const dot = new Dot("/");
-const git = simpleGit();
 cosmicSync("stethoscope");
 
 const items = Object.keys(config("integrations") || {});
@@ -41,7 +39,10 @@ export const run = async () => {
     Twitter,
   ]) {
     const integration = new ClassName();
-    if (items.includes(integration.name) && config("integrations")[integration.name].frequency === "daily") {
+    if (
+      items.includes(integration.name) &&
+      config("integrations")[integration.name].frequency === "daily"
+    ) {
       console.log("Updating", integration.name);
       await integration.update();
     } else {
@@ -65,7 +66,7 @@ export const run = async () => {
       const files = (await recursiveReaddir(join(".", "data", category, "summary")))
         .map((path) => path.split(`${join(".", "data", category, "summary")}/`)[1])
         .sort((a, b) =>
-          a.localeCompare(b, undefined, {
+          a.localeCompare(b, "en", {
             numeric: true,
             sensitivity: "base",
           })
@@ -76,8 +77,10 @@ export const run = async () => {
         const prefix = path.join("/") === "" ? "root" : path.join("/");
         data[prefix] = true;
       });
-      const items = recursivelyClean2(
-        recursivelyClean1(JSON.parse(JSON.stringify(dot.object(data)).replace(/_check_/g, "")))
+      const items = recursivelyArrange(
+        recursivelyClean2(
+          recursivelyClean1(JSON.parse(JSON.stringify(dot.object(data)).replace(/_check_/g, "")))
+        )
       );
       await ensureFile(join(".", "data", category, "api.json"));
       await writeFile(join(".", "data", category, "api.json"), JSON.stringify(items, null, 2));
@@ -114,6 +117,22 @@ function recursivelyClean2(items: any) {
           items[key] = Object.values(items[key]);
         }
       }
+    });
+  }
+  return items;
+}
+
+function recursivelyArrange(items: any) {
+  if (Array.isArray(items)) {
+    items = items.sort((a, b) =>
+      a.localeCompare(b, "en", {
+        numeric: true,
+        sensitivity: "base",
+      })
+    );
+  } else if (typeof items === "object") {
+    Object.keys(items).forEach((key) => {
+      items[key] = recursivelyArrange(items[key]);
     });
   }
   return items;
