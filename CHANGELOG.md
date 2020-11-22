@@ -1,3 +1,32 @@
+## [v1.2.3](https://github.com/stethoscope-js/action/compare/v1.2.2...v1.2.3) (2020-11-22)
+
+### ⬆️ Dependency updates
+
+- [`c961150`](https://github.com/stethoscope-js/action/commit/c961150)  Bump simple-git from 2.20.1 to 2.21.0
+- [`d3f9352`](https://github.com/stethoscope-js/action/commit/d3f9352)  Bump pascalgn/automerge-action from v0.11.0 to v0.12.0
+- [`a0d5c5d`](https://github.com/stethoscope-js/action/commit/a0d5c5d)  Bump semantic-release from 17.1.2 to 17.2.0
+- [`519b08f`](https://github.com/stethoscope-js/action/commit/519b08f)  Bump jest from 26.5.2 to 26.5.3
+- [`4380398`](https://github.com/stethoscope-js/action/commit/4380398)  Bump stefanzweifel/git-auto-commit-action
+- [`badb012`](https://github.com/stethoscope-js/action/commit/badb012)  Bump semantic-release from 17.2.0 to 17.2.1
+- [`2cd5be8`](https://github.com/stethoscope-js/action/commit/2cd5be8)  Bump jest from 26.5.3 to 26.6.0
+- [`993a683`](https://github.com/stethoscope-js/action/commit/993a683)  Bump @types/jest from 26.0.14 to 26.0.15
+- [`56bd9a1`](https://github.com/stethoscope-js/action/commit/56bd9a1)  Bump stefanzweifel/git-auto-commit-action
+- [`f3fb481`](https://github.com/stethoscope-js/action/commit/f3fb481)  Bump ts-jest from 26.4.1 to 26.4.2
+- [`2a327b5`](https://github.com/stethoscope-js/action/commit/2a327b5)  Bump jest from 26.6.0 to 26.6.1
+- [`973eb75`](https://github.com/stethoscope-js/action/commit/973eb75)  Bump stefanzweifel/git-auto-commit-action
+- [`3056c21`](https://github.com/stethoscope-js/action/commit/3056c21)  Bump typescript from 4.0.3 to 4.0.5
+- [`d72fbaa`](https://github.com/stethoscope-js/action/commit/d72fbaa)  Bump ts-jest from 26.4.2 to 26.4.3
+- [`10b4a95`](https://github.com/stethoscope-js/action/commit/10b4a95)  Bump @koj/config from 1.2.5 to 1.2.6
+- [`3b814e0`](https://github.com/stethoscope-js/action/commit/3b814e0)  Bump semantic-release from 17.2.1 to 17.2.2
+- [`b8fe125`](https://github.com/stethoscope-js/action/commit/b8fe125)  Bump @koj/config from 1.2.6 to 1.2.7
+- [`48931b7`](https://github.com/stethoscope-js/action/commit/48931b7)  Bump jest from 26.6.1 to 26.6.2
+- [`254c012`](https://github.com/stethoscope-js/action/commit/254c012)  Bump jest from 26.6.2 to 26.6.3
+- [`37fe46f`](https://github.com/stethoscope-js/action/commit/37fe46f)  Bump @koj/config from 1.2.7 to 1.2.8
+- [`4513ff4`](https://github.com/stethoscope-js/action/commit/4513ff4)  Bump ts-jest from 26.4.3 to 26.4.4
+- [`f6e9946`](https://github.com/stethoscope-js/action/commit/f6e9946)  Bump simple-git from 2.21.0 to 2.22.0
+- [`54716f9`](https://github.com/stethoscope-js/action/commit/54716f9)  Bump semantic-release from 17.2.2 to 17.2.3
+- [`1789c88`](https://github.com/stethoscope-js/action/commit/1789c88)  Update koj-co/github-actions-starter
+
 ## [v1.2.2](https://github.com/stethoscope-js/action/compare/v1.2.1...v1.2.2) (2020-10-07)
 
 ### ♻️ Updates
