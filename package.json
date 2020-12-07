@@ -1,6 +1,6 @@
 {
   "name": "@stethoscope-js/action",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "GitHub Action to track your life data using Stethoscope",
   "main": "dist/index.js",
   "scripts": {
