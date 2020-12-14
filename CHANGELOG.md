@@ -1,3 +1,19 @@
+## v1.2.5 (2020-12-14)
+
+[📝 Release notes](https://github.com/stethoscope-js/action/releases/tag/v1.2.5) · [💻 Compare](https://github.com/stethoscope-js/action/compare/v1.2.4...v1.2.5) · [🔖 Tag](https://github.com/stethoscope-js/action/tree/v1.2.5) · 🗄️ Archive ([zip](https://github.com/stethoscope-js/action/archive/v1.2.5.zip) · [tar.gz](https://github.com/stethoscope-js/action/archive/v1.2.5.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`0efbdb7`](https://github.com/stethoscope-js/action/commit/0efbdb7)  Bump @types/jest from 26.0.16 to 26.0.17
+- [`7d1f0e6`](https://github.com/stethoscope-js/action/commit/7d1f0e6)  Bump @types/jest from 26.0.17 to 26.0.18
+- [`135d597`](https://github.com/stethoscope-js/action/commit/135d597)  Bump simple-git from 2.24.0 to 2.25.0
+- [`c7e9d1d`](https://github.com/stethoscope-js/action/commit/c7e9d1d)  Bump simple-git from 2.25.0 to 2.26.0
+- [`6eec890`](https://github.com/stethoscope-js/action/commit/6eec890)  Bump @types/jest from 26.0.18 to 26.0.19
+- [`405e35d`](https://github.com/stethoscope-js/action/commit/405e35d)  Bump actions/setup-node from v2.1.2 to v2.1.3
+- [`f38d206`](https://github.com/stethoscope-js/action/commit/f38d206)  Bump simple-git from 2.26.0 to 2.27.0
+- [`654526e`](https://github.com/stethoscope-js/action/commit/654526e)  Bump @stethoscope-js/integrations from 2.2.4 to 2.2.5
+- [`d1f31d2`](https://github.com/stethoscope-js/action/commit/d1f31d2)  Bump typescript from 4.1.2 to 4.1.3
+
 ## v1.2.4 (2020-12-07)
 
 [📝 Release notes](https://github.com/stethoscope-js/action/releases/tag/v1.2.4) · [💻 Compare](https://github.com/stethoscope-js/action/compare/v1.2.3...v1.2.4) · [🔖 Tag](https://github.com/stethoscope-js/action/tree/v1.2.4) · 🗄️ Archive ([zip](https://github.com/stethoscope-js/action/archive/v1.2.4.zip) · [tar.gz](https://github.com/stethoscope-js/action/archive/v1.2.4.tar.gz))
