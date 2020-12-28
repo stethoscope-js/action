@@ -1,3 +1,20 @@
+## v1.2.6 (2020-12-28)
+
+[📝 Release notes](https://github.com/stethoscope-js/action/releases/tag/v1.2.6) · [💻 Compare](https://github.com/stethoscope-js/action/compare/v1.2.5...v1.2.6) · [🔖 Tag](https://github.com/stethoscope-js/action/tree/v1.2.6) · 🗄️ Archive ([zip](https://github.com/stethoscope-js/action/archive/v1.2.6.zip) · [tar.gz](https://github.com/stethoscope-js/action/archive/v1.2.6.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`f386d1c`](https://github.com/stethoscope-js/action/commit/f386d1c)  Bump simple-git from 2.27.0 to 2.29.0
+- [`4b3ff9e`](https://github.com/stethoscope-js/action/commit/4b3ff9e)  Bump stefanzweifel/git-auto-commit-action
+- [`dda20a1`](https://github.com/stethoscope-js/action/commit/dda20a1)  Bump simple-git from 2.29.0 to 2.30.0
+- [`c8ac15c`](https://github.com/stethoscope-js/action/commit/c8ac15c)  Bump actions/setup-node from v2.1.3 to v2.1.4
+- [`407374d`](https://github.com/stethoscope-js/action/commit/407374d)  Bump simple-git from 2.30.0 to 2.31.0
+- [`0c9291c`](https://github.com/stethoscope-js/action/commit/0c9291c)  Bump @stethoscope-js/integrations from 2.2.5 to 2.2.6
+- [`1f20dba`](https://github.com/stethoscope-js/action/commit/1f20dba)  Bump vsoch/pull-request-action from 1.0.12 to 1.0.13
+- [`d23ade1`](https://github.com/stethoscope-js/action/commit/d23ade1)  Bump pascalgn/automerge-action from v0.12.0 to v0.13.0
+- [`7f03192`](https://github.com/stethoscope-js/action/commit/7f03192)  Bump node-notifier from 8.0.0 to 8.0.1
+- [`f229a59`](https://github.com/stethoscope-js/action/commit/f229a59)  Bump @stethoscope-js/integrations from 2.2.6 to 2.2.7
+
 ## v1.2.5 (2020-12-14)
 
 [📝 Release notes](https://github.com/stethoscope-js/action/releases/tag/v1.2.5) · [💻 Compare](https://github.com/stethoscope-js/action/compare/v1.2.4...v1.2.5) · [🔖 Tag](https://github.com/stethoscope-js/action/tree/v1.2.5) · 🗄️ Archive ([zip](https://github.com/stethoscope-js/action/archive/v1.2.5.zip) · [tar.gz](https://github.com/stethoscope-js/action/archive/v1.2.5.tar.gz))
