@@ -1,3 +1,13 @@
+## v1.2.9 (2021-01-18)
+
+[📝 Release notes](https://github.com/stethoscope-js/action/releases/tag/v1.2.9) · [💻 Compare](https://github.com/stethoscope-js/action/compare/v1.2.8...v1.2.9) · [🔖 Tag](https://github.com/stethoscope-js/action/tree/v1.2.9) · 🗄️ Archive ([zip](https://github.com/stethoscope-js/action/archive/v1.2.9.zip) · [tar.gz](https://github.com/stethoscope-js/action/archive/v1.2.9.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`5004f4a`](https://github.com/stethoscope-js/action/commit/5004f4a)  Bump semantic-release from 17.3.1 to 17.3.2
+- [`390b7ed`](https://github.com/stethoscope-js/action/commit/390b7ed)  Bump semantic-release from 17.3.2 to 17.3.3
+- [`c01fa71`](https://github.com/stethoscope-js/action/commit/c01fa71)  Bump @stethoscope-js/integrations from 2.2.9 to 2.2.10
+
 ## v1.2.8 (2021-01-11)
 
 [📝 Release notes](https://github.com/stethoscope-js/action/releases/tag/v1.2.8) · [💻 Compare](https://github.com/stethoscope-js/action/compare/v1.2.7...v1.2.8) · [🔖 Tag](https://github.com/stethoscope-js/action/tree/v1.2.8) · 🗄️ Archive ([zip](https://github.com/stethoscope-js/action/archive/v1.2.8.zip) · [tar.gz](https://github.com/stethoscope-js/action/archive/v1.2.8.tar.gz))
