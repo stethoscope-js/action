@@ -44,7 +44,7 @@
     "@stethoscope-js/integrations": "^2.2.1",
     "dot-object": "^2.1.4",
     "recursive-readdir": "^2.2.2",
-    "simple-git": "^2.20.1"
+    "simple-git": "^3.7.0"
   },
   "jest": {
     "roots": [
