@@ -28,7 +28,7 @@
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
     "@types/dot-object": "^2.1.2",
-    "@types/jest": "^26.0.14",
+    "@types/jest": "^27.5.0",
     "@types/recursive-readdir": "^2.2.0",
     "@zeit/ncc": "^0.22.3",
     "jest": "^26.5.2",
