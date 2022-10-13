@@ -38,22 +38,27 @@ export const run = async () => {
     Goodreads,
     Twitter,
   ]) {
-    const integration = new ClassName();
-    if (
-      items.includes(integration.name) &&
-      config("integrations")[integration.name].frequency === "daily"
-    ) {
-      console.log("Updating", integration.name);
-      await integration.update();
-    } else {
-      console.log("Skipping", integration.name);
-      console.log("  >  Included in integrations?", items.includes(integration.name));
-      console.log("  >  Frequency?", (config("integrations")[integration.name] || {}).frequency);
-    }
-
-    if (items.includes(integration.name)) {
-      console.log("Generating summary", integration.name);
-      await integration.summary();
+    try {
+      const integration = new ClassName();
+      if (
+        items.includes(integration.name) &&
+        config("integrations")[integration.name].frequency === "daily"
+      ) {
+        console.log("Updating", integration.name);
+        await integration.update();
+      } else {
+        console.log("Skipping", integration.name);
+        console.log("  >  Included in integrations?", items.includes(integration.name));
+        console.log("  >  Frequency?", (config("integrations")[integration.name] || {}).frequency);
+      }
+  
+      if (items.includes(integration.name)) {
+        console.log("Generating summary", integration.name);
+        await integration.summary();
+      }
+    } catch (error) {
+      console.error(`An error occurred with in updating ${integration.name} data`);
+      console.log(error);
     }
   }
   console.log("Generating API endpoints");
