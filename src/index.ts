@@ -38,8 +38,8 @@ export const run = async () => {
     Goodreads,
     Twitter,
   ]) {
+    const integration = new ClassName();
     try {
-      const integration = new ClassName();
       if (
         items.includes(integration.name) &&
         config("integrations")[integration.name].frequency === "daily"
