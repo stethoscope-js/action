@@ -2,7 +2,7 @@ name: "Stethoscope"
 description: "Track, visualize, and embed your health and life data"
 author: "Stethoscoper <https://github.com/stethoscoper>"
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"
 branding:
   icon: "umbrella"
