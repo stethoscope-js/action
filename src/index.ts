@@ -11,9 +11,11 @@ import {
   Spotify,
   Twitter,
   Wakatime,
+  zero,
+  sortObject,
 } from "@stethoscope-js/integrations";
 import Dot from "dot-object";
-import { ensureFile, lstat, pathExists, readdir, writeFile } from "fs-extra";
+import { ensureFile, lstat, pathExists, readdir, readJson, writeFile } from "fs-extra";
 import { join } from "path";
 import recursiveReaddir from "recursive-readdir";
 
@@ -51,7 +53,7 @@ export const run = async () => {
         console.log("  >  Included in integrations?", items.includes(integration.name));
         console.log("  >  Frequency?", (config("integrations")[integration.name] || {}).frequency);
       }
-  
+
       if (items.includes(integration.name)) {
         console.log("Generating summary", integration.name);
         await integration.summary();
@@ -90,6 +92,37 @@ export const run = async () => {
       await ensureFile(join(".", "data", category, "api.json"));
       await writeFile(join(".", "data", category, "api.json"), JSON.stringify(items, null, 2));
     }
+  }
+  console.log("Generating daily.json files");
+  const createdIntegrationData = await readdir(join(".", "data"));
+  for (const dir of createdIntegrationData) {
+    const summary: Record<string, any> = {};
+    if (
+      (await pathExists(join(".", "data", dir, "summary", "days"))) &&
+      (await lstat(join(".", "data", dir, "summary", "days"))).isDirectory()
+    ) {
+      const years = await readdir(join(".", "data", dir, "summary", "days"));
+      for (const year of years) {
+        if (
+          (await pathExists(join(".", "data", dir, "summary", "days", year))) &&
+          (await lstat(join(".", "data", dir, "summary", "days", year))).isDirectory()
+        ) {
+          const months = await readdir(join(".", "data", dir, "summary", "days", year));
+          for (const month of months) {
+            const file = join(".", "data", dir, "summary", "days", year, month);
+            const data = (await readJson(file)) as Record<string, any>;
+            Object.entries(data).forEach(([day, value]) => {
+              summary[`${zero(year)}-${zero(month.replace(".json", ""))}-${zero(day)}`] = value;
+            });
+          }
+        }
+      }
+    }
+    if (Object.keys(summary).length)
+      await writeFile(
+        join(".", "data", dir, "summary", "days.json"),
+        JSON.stringify(sortObject(summary), null, 2) + "\n"
+      );
   }
   console.log("Finished generating API endpoints");
 };
