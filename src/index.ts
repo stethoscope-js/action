@@ -112,7 +112,7 @@ export const run = async () => {
             const file = join(".", "data", dir, "summary", "days", year, month);
             const data = (await readJson(file)) as Record<string, any>;
             Object.entries(data).forEach(([day, value]) => {
-              summary[`${zero(year)}-${zero(month.replace(".json", ""))}-${zero(day)}`] = value;
+              summary[`${zero(year)}-${month.replace(".json", "")}-${zero(day)}`] = value;
             });
           }
         }
