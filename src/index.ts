@@ -47,8 +47,8 @@ export const run = async () => {
         config("integrations")[integration.name].frequency === "daily"
       ) {
         console.log("Updating", integration.name);
-        if (process.env.MODE === "legacy" && "legacy" in integration && typeof integration.legacy === "function")
-          await integration.legacy();
+        if (typeof process.env.LEGACY === "string" && "legacy" in integration && typeof integration.legacy === "function")
+          await integration.legacy(process.env.LEGACY as string);
         else await integration.update();
       } else {
         console.log("Skipping", integration.name);
