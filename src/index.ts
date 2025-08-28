@@ -47,7 +47,7 @@ export const run = async () => {
         config("integrations")[integration.name].frequency === "daily"
       ) {
         console.log("Updating", integration.name);
-        if (process.env.MODE === "legacy")
+        if (process.env.MODE === "legacy" && "legacy" in integration && typeof integration.legacy === "function")
           await integration.legacy();
         else await integration.update();
       } else {
