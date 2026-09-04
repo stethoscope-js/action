@@ -1,55 +1,53 @@
 import { setFailed } from "@actions/core";
 import { config, cosmicSync } from "@anandchowdhary/cosmic";
 import { Clockify, Goodreads, GoogleFit, LastFm, OuraRing, PocketCasts, Rescuetime, Spotify, Twitter, Wakatime } from "@stethoscope-js/integrations";
+import { runDailyIntegrations } from "./integration-outcomes";
+import { snapshotV2Files, writeV3RunManifest } from "./run-manifest";
 import { generateV2Indexes } from "./v2-indexes";
 cosmicSync("stethoscope");
 
-const items = Object.keys(config("integrations") || {});
+const actionVersion = require("../package.json").version as string;
+const integrationsVersion = require("@stethoscope-js/integrations/package.json").version as string;
 
 export const run = async () => {
+  const configuredIntegrations = config("integrations") || {};
+  const items = Object.keys(configuredIntegrations);
   if (!items) return console.log("Config not found", items);
   console.log("Enabled integrations", items);
 
-  for await (const ClassName of [
-    Spotify,
-    Rescuetime,
-    LastFm,
-    PocketCasts,
-    Wakatime,
-    Clockify,
-    GoogleFit,
-    OuraRing,
-    Goodreads,
-    Twitter,
-  ]) {
-    const integration = new ClassName();
-    try {
-      if (
-        items.includes(integration.name) &&
-        config("integrations")[integration.name].frequency === "daily"
-      ) {
-        console.log("Updating", integration.name);
-        if (typeof process.env.LEGACY === "string" && "legacy" in integration && typeof integration.legacy === "function")
-          await integration.legacy(process.env.LEGACY as string);
-        else await integration.update();
-      } else {
-        console.log("Skipping", integration.name);
-        console.log("  >  Included in integrations?", items.includes(integration.name));
-        console.log("  >  Frequency?", (config("integrations")[integration.name] || {}).frequency);
-      }
+  const dataRoot = "data";
+  const before = await snapshotV2Files(dataRoot);
+  const adapters = await runDailyIntegrations({
+    integrations: [
+      () => new Spotify(),
+      () => new Rescuetime(),
+      () => new LastFm(),
+      () => new PocketCasts(),
+      () => new Wakatime(),
+      () => new Clockify(),
+      () => new GoogleFit(),
+      () => new OuraRing(),
+      () => new Goodreads(),
+      () => new Twitter(),
+    ],
+    configuredIntegrations,
+    legacy: process.env.LEGACY,
+    log: console.log,
+    error: console.error,
+  });
 
-      if (items.includes(integration.name)) {
-        console.log("Generating summary", integration.name);
-        await integration.summary();
-      }
-    } catch (error) {
-      console.error(`An error occurred with in updating ${integration.name} data`);
-      console.log(error);
-    }
-  }
   console.log("Generating API endpoints and daily summaries");
-  await generateV2Indexes("data");
+  await generateV2Indexes(dataRoot);
   console.log("Finished generating API endpoints");
+  await writeV3RunManifest({
+    dataRoot,
+    before,
+    generatedAt: new Date().toISOString(),
+    sourceSha: process.env.GITHUB_SHA || "unknown",
+    actionVersion,
+    integrationsVersion,
+    adapters,
+  });
 };
 
 run()
