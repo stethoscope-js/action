@@ -1,0 +1,11 @@
+{
+  "days": {
+    "2026": [
+      "09.json"
+    ]
+  },
+  "weekly": [
+    "01.json"
+  ],
+  "stats": "stats.json"
+}
