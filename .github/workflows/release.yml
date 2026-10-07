@@ -1,6 +1,8 @@
 name: Release CI
 on:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   release:
     name: Build, test, and release
@@ -14,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: "24.x"
       - name: Cache node modules
         uses: actions/cache@v6
         env:
@@ -31,5 +33,4 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
