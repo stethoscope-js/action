@@ -27,9 +27,10 @@ const runDailyIntegrations = async ({ integrations, configuredIntegrations, lega
             }
             outcomes.push({ name: integration.name, status: shouldUpdate ? "succeeded" : "skipped" });
         }
-        catch (cause) {
+        catch {
+            // Provider errors can carry Authorization headers and response bodies.
+            // Keep the adapter outcome without passing the thrown object to Actions logs.
             error(`An error occurred with in updating ${integration.name} data`);
-            log(cause);
             outcomes.push({ name: integration.name, status: "failed" });
         }
     }
