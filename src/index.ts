@@ -1,6 +1,7 @@
 import { setFailed } from "@actions/core";
 import { config, cosmicSync } from "@anandchowdhary/cosmic";
 import { Clockify, Goodreads, GoogleFit, LastFm, OuraRing, PocketCasts, Rescuetime, Spotify, Twitter, Wakatime } from "@stethoscope-js/integrations";
+import { reportFatalActionError } from "./fatal-error";
 import { runDailyIntegrations } from "./integration-outcomes";
 import { snapshotV2Files, writeV3RunManifest } from "./run-manifest";
 import { generateV2Indexes } from "./v2-indexes";
@@ -53,6 +54,5 @@ export const run = async () => {
 run()
   .then(() => {})
   .catch((error) => {
-    console.error("ERROR", error);
-    setFailed(error.message);
+    reportFatalActionError(error, console.error, setFailed);
   });
