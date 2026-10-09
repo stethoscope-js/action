@@ -62,6 +62,31 @@ test("records an adapter failure without retaining its error details", async () 
   expect(errors).toHaveLength(1);
 });
 
+test.each(["update", "summary"])("never logs an adapter %s exception or its credential-bearing fields", async (phase) => {
+  const logs: unknown[][] = [];
+  const errors: unknown[][] = [];
+  const { runDailyIntegrations } = require("./integration-outcomes");
+  const cause = Object.assign(new Error("private credential marker"), {
+    config: { headers: { Authorization: "private credential marker" } },
+  });
+
+  const outcomes = await runDailyIntegrations({
+    integrations: [{
+      name: "oura-ring",
+      update: async () => { if (phase === "update") throw cause; },
+      summary: async () => { if (phase === "summary") throw cause; },
+    }],
+    configuredIntegrations: { "oura-ring": { frequency: "daily" } },
+    log: (...values: unknown[]) => logs.push(values),
+    error: (...values: unknown[]) => errors.push(values),
+  });
+
+  expect(outcomes).toEqual([{ name: "oura-ring", status: "failed" }]);
+  expect(errors).toEqual([["An error occurred with in updating oura-ring data"]]);
+  expect([...logs, ...errors].flat()).not.toContain(cause);
+  expect(JSON.stringify([...logs, ...errors])).not.toContain("private credential marker");
+});
+
 test("constructs adapters lazily so a later constructor cannot block an earlier adapter", async () => {
   const calls: string[] = [];
   const { runDailyIntegrations } = require("./integration-outcomes");
