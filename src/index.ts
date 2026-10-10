@@ -5,10 +5,15 @@ import { reportFatalActionError } from "./fatal-error";
 import { runDailyIntegrations } from "./integration-outcomes";
 import { snapshotV2Files, writeV3RunManifest } from "./run-manifest";
 import { generateV2Indexes } from "./v2-indexes";
-cosmicSync("stethoscope");
-
-const actionVersion = require("../package.json").version as string;
-const integrationsVersion = require("@stethoscope-js/integrations/package.json").version as string;
+let actionVersion = "unknown";
+let integrationsVersion = "unknown";
+try {
+  cosmicSync("stethoscope");
+  actionVersion = require("../package.json").version as string;
+  integrationsVersion = require("@stethoscope-js/integrations/package.json").version as string;
+} catch (cause) {
+  reportFatalActionError(cause, console.error, setFailed);
+}
 
 export const run = async () => {
   const configuredIntegrations = config("integrations") || {};
