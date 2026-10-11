@@ -816336,7 +816336,7 @@ module.exports = axios;
 /***/ ((module) => {
 
 "use strict";
-module.exports = {"i8":"2.4.3"};
+module.exports = {"i8":"2.4.4"};
 
 /***/ }),
 
