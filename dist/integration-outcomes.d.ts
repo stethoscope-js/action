@@ -13,7 +13,7 @@ type Log = (...values: any[]) => void;
 export declare const runDailyIntegrations: ({ integrations, configuredIntegrations, legacy, log, error, }: {
     integrations: Array<Integration | IntegrationFactory>;
     configuredIntegrations: IntegrationConfig;
-    legacy?: string | undefined;
+    legacy?: string;
     log: Log;
     error: Log;
 }) => Promise<AdapterOutcome[]>;
