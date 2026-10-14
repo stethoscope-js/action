@@ -4619,7 +4619,7 @@ const dayjs_1 = __importDefault(__nccwpck_require__(7401));
 const isLeapYear_1 = __importDefault(__nccwpck_require__(33279));
 const isoWeeksInYear_1 = __importDefault(__nccwpck_require__(10890));
 const weekOfYear_1 = __importDefault(__nccwpck_require__(76698));
-const fs_extra_1 = __nccwpck_require__(67569);
+const fs_extra_1 = __nccwpck_require__(5630);
 const googleapis_1 = __nccwpck_require__(44913);
 const path_1 = __nccwpck_require__(71017);
 const common_1 = __nccwpck_require__(78408);
@@ -5081,7 +5081,7 @@ const dayjs_1 = __importDefault(__nccwpck_require__(7401));
 const isLeapYear_1 = __importDefault(__nccwpck_require__(33279));
 const isoWeeksInYear_1 = __importDefault(__nccwpck_require__(10890));
 const weekOfYear_1 = __importDefault(__nccwpck_require__(76698));
-const fs_extra_1 = __nccwpck_require__(67569);
+const fs_extra_1 = __nccwpck_require__(5630);
 const path_1 = __nccwpck_require__(71017);
 const common_1 = __nccwpck_require__(78408);
 dayjs_1.default.extend(weekOfYear_1.default);
@@ -5288,7 +5288,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const cosmic_1 = __nccwpck_require__(23990);
 const dayjs_1 = __importDefault(__nccwpck_require__(7401));
 const weekOfYear_1 = __importDefault(__nccwpck_require__(76698));
-const fs_extra_1 = __nccwpck_require__(67569);
+const fs_extra_1 = __nccwpck_require__(5630);
 const path_1 = __nccwpck_require__(71017);
 const pocketcasts_1 = __importDefault(__nccwpck_require__(85950));
 const common_1 = __nccwpck_require__(78408);
@@ -5352,7 +5352,7 @@ const cosmic_1 = __nccwpck_require__(23990);
 const axios_1 = __importDefault(__nccwpck_require__(88757));
 const dayjs_1 = __importDefault(__nccwpck_require__(7401));
 const weekOfYear_1 = __importDefault(__nccwpck_require__(76698));
-const fs_extra_1 = __nccwpck_require__(67569);
+const fs_extra_1 = __nccwpck_require__(5630);
 const path_1 = __nccwpck_require__(71017);
 const common_1 = __nccwpck_require__(78408);
 dayjs_1.default.extend(weekOfYear_1.default);
@@ -5651,7 +5651,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const cosmic_1 = __nccwpck_require__(23990);
 const dayjs_1 = __importDefault(__nccwpck_require__(7401));
 const weekOfYear_1 = __importDefault(__nccwpck_require__(76698));
-const fs_extra_1 = __nccwpck_require__(67569);
+const fs_extra_1 = __nccwpck_require__(5630);
 const path_1 = __nccwpck_require__(71017);
 const twitter_lite_1 = __importDefault(__nccwpck_require__(92714));
 const common_1 = __nccwpck_require__(78408);
@@ -5785,7 +5785,7 @@ const cosmic_1 = __nccwpck_require__(23990);
 const axios_1 = __importDefault(__nccwpck_require__(88757));
 const dayjs_1 = __importDefault(__nccwpck_require__(7401));
 const weekOfYear_1 = __importDefault(__nccwpck_require__(76698));
-const fs_extra_1 = __nccwpck_require__(67569);
+const fs_extra_1 = __nccwpck_require__(5630);
 const path_1 = __nccwpck_require__(71017);
 const common_1 = __nccwpck_require__(78408);
 dayjs_1.default.extend(weekOfYear_1.default);
@@ -5903,7 +5903,7 @@ exports["default"] = Wakatime;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sortObject = exports.zero = exports.write = exports.integrationConfig = void 0;
 const cosmic_1 = __nccwpck_require__(23990);
-const fs_extra_1 = __nccwpck_require__(67569);
+const fs_extra_1 = __nccwpck_require__(5630);
 (0, cosmic_1.cosmicSync)("stethoscope");
 const integrationConfig = (service, key) => {
     const configs = (0, cosmic_1.config)("integrations") || {};
@@ -5973,1746 +5973,9 @@ exports.Twitter = twitter_1.default;
 const wakatime_1 = __importDefault(__nccwpck_require__(8828));
 exports.Wakatime = wakatime_1.default;
 __exportStar(__nccwpck_require__(78408), exports);
-const fs_extra_1 = __importDefault(__nccwpck_require__(67569));
+const fs_extra_1 = __importDefault(__nccwpck_require__(5630));
 exports.fs = fs_extra_1.default;
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 51147:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const fs = __nccwpck_require__(77758)
-const path = __nccwpck_require__(71017)
-const mkdirsSync = (__nccwpck_require__(92081).mkdirsSync)
-const utimesMillisSync = (__nccwpck_require__(21950).utimesMillisSync)
-const stat = __nccwpck_require__(97204)
-
-function copySync (src, dest, opts) {
-  if (typeof opts === 'function') {
-    opts = { filter: opts }
-  }
-
-  opts = opts || {}
-  opts.clobber = 'clobber' in opts ? !!opts.clobber : true // default to true for now
-  opts.overwrite = 'overwrite' in opts ? !!opts.overwrite : opts.clobber // overwrite falls back to clobber
-
-  // Warn about using preserveTimestamps on 32-bit node
-  if (opts.preserveTimestamps && process.arch === 'ia32') {
-    process.emitWarning(
-      'Using the preserveTimestamps option in 32-bit node is not recommended;\n\n' +
-      '\tsee https://github.com/jprichardson/node-fs-extra/issues/269',
-      'Warning', 'fs-extra-WARN0002'
-    )
-  }
-
-  const { srcStat, destStat } = stat.checkPathsSync(src, dest, 'copy', opts)
-  stat.checkParentPathsSync(src, srcStat, dest, 'copy')
-  if (opts.filter && !opts.filter(src, dest)) return
-  const destParent = path.dirname(dest)
-  if (!fs.existsSync(destParent)) mkdirsSync(destParent)
-  return getStats(destStat, src, dest, opts)
-}
-
-function getStats (destStat, src, dest, opts) {
-  const statSync = opts.dereference ? fs.statSync : fs.lstatSync
-  const srcStat = statSync(src)
-
-  if (srcStat.isDirectory()) return onDir(srcStat, destStat, src, dest, opts)
-  else if (srcStat.isFile() ||
-           srcStat.isCharacterDevice() ||
-           srcStat.isBlockDevice()) return onFile(srcStat, destStat, src, dest, opts)
-  else if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts)
-  else if (srcStat.isSocket()) throw new Error(`Cannot copy a socket file: ${src}`)
-  else if (srcStat.isFIFO()) throw new Error(`Cannot copy a FIFO pipe: ${src}`)
-  throw new Error(`Unknown file: ${src}`)
-}
-
-function onFile (srcStat, destStat, src, dest, opts) {
-  if (!destStat) return copyFile(srcStat, src, dest, opts)
-  return mayCopyFile(srcStat, src, dest, opts)
-}
-
-function mayCopyFile (srcStat, src, dest, opts) {
-  if (opts.overwrite) {
-    fs.unlinkSync(dest)
-    return copyFile(srcStat, src, dest, opts)
-  } else if (opts.errorOnExist) {
-    throw new Error(`'${dest}' already exists`)
-  }
-}
-
-function copyFile (srcStat, src, dest, opts) {
-  fs.copyFileSync(src, dest)
-  if (opts.preserveTimestamps) handleTimestamps(srcStat.mode, src, dest)
-  return setDestMode(dest, srcStat.mode)
-}
-
-function handleTimestamps (srcMode, src, dest) {
-  // Make sure the file is writable before setting the timestamp
-  // otherwise open fails with EPERM when invoked with 'r+'
-  // (through utimes call)
-  if (fileIsNotWritable(srcMode)) makeFileWritable(dest, srcMode)
-  return setDestTimestamps(src, dest)
-}
-
-function fileIsNotWritable (srcMode) {
-  return (srcMode & 0o200) === 0
-}
-
-function makeFileWritable (dest, srcMode) {
-  return setDestMode(dest, srcMode | 0o200)
-}
-
-function setDestMode (dest, srcMode) {
-  return fs.chmodSync(dest, srcMode)
-}
-
-function setDestTimestamps (src, dest) {
-  // The initial srcStat.atime cannot be trusted
-  // because it is modified by the read(2) system call
-  // (See https://nodejs.org/api/fs.html#fs_stat_time_values)
-  const updatedSrcStat = fs.statSync(src)
-  return utimesMillisSync(dest, updatedSrcStat.atime, updatedSrcStat.mtime)
-}
-
-function onDir (srcStat, destStat, src, dest, opts) {
-  if (!destStat) return mkDirAndCopy(srcStat.mode, src, dest, opts)
-  return copyDir(src, dest, opts)
-}
-
-function mkDirAndCopy (srcMode, src, dest, opts) {
-  fs.mkdirSync(dest)
-  copyDir(src, dest, opts)
-  return setDestMode(dest, srcMode)
-}
-
-function copyDir (src, dest, opts) {
-  const dir = fs.opendirSync(src)
-
-  try {
-    let dirent
-
-    while ((dirent = dir.readSync()) !== null) {
-      copyDirItem(dirent.name, src, dest, opts)
-    }
-  } finally {
-    dir.closeSync()
-  }
-}
-
-function copyDirItem (item, src, dest, opts) {
-  const srcItem = path.join(src, item)
-  const destItem = path.join(dest, item)
-  if (opts.filter && !opts.filter(srcItem, destItem)) return
-  const { destStat } = stat.checkPathsSync(srcItem, destItem, 'copy', opts)
-  return getStats(destStat, srcItem, destItem, opts)
-}
-
-function onLink (destStat, src, dest, opts) {
-  let resolvedSrc = fs.readlinkSync(src)
-  if (opts.dereference) {
-    resolvedSrc = path.resolve(process.cwd(), resolvedSrc)
-  }
-
-  if (!destStat) {
-    return fs.symlinkSync(resolvedSrc, dest)
-  } else {
-    let resolvedDest
-    try {
-      resolvedDest = fs.readlinkSync(dest)
-    } catch (err) {
-      // dest exists and is a regular file or directory,
-      // Windows may throw UNKNOWN error. If dest already exists,
-      // fs throws error anyway, so no need to guard against it here.
-      if (err.code === 'EINVAL' || err.code === 'UNKNOWN') return fs.symlinkSync(resolvedSrc, dest)
-      throw err
-    }
-    if (opts.dereference) {
-      resolvedDest = path.resolve(process.cwd(), resolvedDest)
-    }
-    // If both symlinks resolve to the same target, they are still distinct symlinks
-    // that can be copied/overwritten. Only check subdirectory constraints when
-    // the resolved paths are different.
-    if (resolvedSrc !== resolvedDest) {
-      if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
-        throw new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`)
-      }
-
-      // prevent copy if src is a subdir of dest since unlinking
-      // dest in this case would result in removing src contents
-      // and therefore a broken symlink would be created.
-      if (stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
-        throw new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`)
-      }
-    }
-    return copyLink(resolvedSrc, dest)
-  }
-}
-
-function copyLink (resolvedSrc, dest) {
-  fs.unlinkSync(dest)
-  return fs.symlinkSync(resolvedSrc, dest)
-}
-
-module.exports = copySync
-
-
-/***/ }),
-
-/***/ 95129:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const fs = __nccwpck_require__(75490)
-const path = __nccwpck_require__(71017)
-const { mkdirs } = __nccwpck_require__(92081)
-const { pathExists } = __nccwpck_require__(82334)
-const { utimesMillis } = __nccwpck_require__(21950)
-const stat = __nccwpck_require__(97204)
-const { asyncIteratorConcurrentProcess } = __nccwpck_require__(25099)
-
-async function copy (src, dest, opts = {}) {
-  if (typeof opts === 'function') {
-    opts = { filter: opts }
-  }
-
-  opts.clobber = 'clobber' in opts ? !!opts.clobber : true // default to true for now
-  opts.overwrite = 'overwrite' in opts ? !!opts.overwrite : opts.clobber // overwrite falls back to clobber
-
-  // Warn about using preserveTimestamps on 32-bit node
-  if (opts.preserveTimestamps && process.arch === 'ia32') {
-    process.emitWarning(
-      'Using the preserveTimestamps option in 32-bit node is not recommended;\n\n' +
-      '\tsee https://github.com/jprichardson/node-fs-extra/issues/269',
-      'Warning', 'fs-extra-WARN0001'
-    )
-  }
-
-  const { srcStat, destStat } = await stat.checkPaths(src, dest, 'copy', opts)
-
-  await stat.checkParentPaths(src, srcStat, dest, 'copy')
-
-  const include = await runFilter(src, dest, opts)
-
-  if (!include) return
-
-  // check if the parent of dest exists, and create it if it doesn't exist
-  const destParent = path.dirname(dest)
-  const dirExists = await pathExists(destParent)
-  if (!dirExists) {
-    await mkdirs(destParent)
-  }
-
-  await getStatsAndPerformCopy(destStat, src, dest, opts)
-}
-
-async function runFilter (src, dest, opts) {
-  if (!opts.filter) return true
-  return opts.filter(src, dest)
-}
-
-async function getStatsAndPerformCopy (destStat, src, dest, opts) {
-  const statFn = opts.dereference ? fs.stat : fs.lstat
-  const srcStat = await statFn(src)
-
-  if (srcStat.isDirectory()) return onDir(srcStat, destStat, src, dest, opts)
-
-  if (
-    srcStat.isFile() ||
-    srcStat.isCharacterDevice() ||
-    srcStat.isBlockDevice()
-  ) return onFile(srcStat, destStat, src, dest, opts)
-
-  if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts)
-  if (srcStat.isSocket()) throw new Error(`Cannot copy a socket file: ${src}`)
-  if (srcStat.isFIFO()) throw new Error(`Cannot copy a FIFO pipe: ${src}`)
-  throw new Error(`Unknown file: ${src}`)
-}
-
-async function onFile (srcStat, destStat, src, dest, opts) {
-  if (!destStat) return copyFile(srcStat, src, dest, opts)
-
-  if (opts.overwrite) {
-    await fs.unlink(dest)
-    return copyFile(srcStat, src, dest, opts)
-  }
-  if (opts.errorOnExist) {
-    throw new Error(`'${dest}' already exists`)
-  }
-}
-
-async function copyFile (srcStat, src, dest, opts) {
-  await fs.copyFile(src, dest)
-  if (opts.preserveTimestamps) {
-    // Make sure the file is writable before setting the timestamp
-    // otherwise open fails with EPERM when invoked with 'r+'
-    // (through utimes call)
-    if (fileIsNotWritable(srcStat.mode)) {
-      await makeFileWritable(dest, srcStat.mode)
-    }
-
-    // Set timestamps and mode correspondingly
-
-    // Note that The initial srcStat.atime cannot be trusted
-    // because it is modified by the read(2) system call
-    // (See https://nodejs.org/api/fs.html#fs_stat_time_values)
-    const updatedSrcStat = await fs.stat(src)
-    await utimesMillis(dest, updatedSrcStat.atime, updatedSrcStat.mtime)
-  }
-
-  return fs.chmod(dest, srcStat.mode)
-}
-
-function fileIsNotWritable (srcMode) {
-  return (srcMode & 0o200) === 0
-}
-
-function makeFileWritable (dest, srcMode) {
-  return fs.chmod(dest, srcMode | 0o200)
-}
-
-async function onDir (srcStat, destStat, src, dest, opts) {
-  // the dest directory might not exist, create it
-  if (!destStat) {
-    await fs.mkdir(dest)
-  }
-
-  // iterate through the files in the current directory to copy everything
-  await asyncIteratorConcurrentProcess(await fs.opendir(src), async (item) => {
-    const srcItem = path.join(src, item.name)
-    const destItem = path.join(dest, item.name)
-
-    const include = await runFilter(srcItem, destItem, opts)
-    // only copy the item if it matches the filter function
-    if (include) {
-      const { destStat } = await stat.checkPaths(srcItem, destItem, 'copy', opts)
-      // If the item is a copyable file, `getStatsAndPerformCopy` will copy it
-      // If the item is a directory, `getStatsAndPerformCopy` will call `onDir` recursively
-      await getStatsAndPerformCopy(destStat, srcItem, destItem, opts)
-    }
-  })
-
-  if (!destStat) {
-    await fs.chmod(dest, srcStat.mode)
-  }
-}
-
-async function onLink (destStat, src, dest, opts) {
-  let resolvedSrc = await fs.readlink(src)
-  if (opts.dereference) {
-    resolvedSrc = path.resolve(process.cwd(), resolvedSrc)
-  }
-  if (!destStat) {
-    return fs.symlink(resolvedSrc, dest)
-  }
-
-  let resolvedDest = null
-  try {
-    resolvedDest = await fs.readlink(dest)
-  } catch (e) {
-    // dest exists and is a regular file or directory,
-    // Windows may throw UNKNOWN error. If dest already exists,
-    // fs throws error anyway, so no need to guard against it here.
-    if (e.code === 'EINVAL' || e.code === 'UNKNOWN') return fs.symlink(resolvedSrc, dest)
-    throw e
-  }
-  if (opts.dereference) {
-    resolvedDest = path.resolve(process.cwd(), resolvedDest)
-  }
-  // If both symlinks resolve to the same target, they are still distinct symlinks
-  // that can be copied/overwritten. Only check subdirectory constraints when
-  // the resolved paths are different.
-  if (resolvedSrc !== resolvedDest) {
-    if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
-      throw new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`)
-    }
-
-    // do not copy if src is a subdir of dest since unlinking
-    // dest in this case would result in removing src contents
-    // and therefore a broken symlink would be created.
-    if (stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
-      throw new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`)
-    }
-  }
-
-  // copy the link
-  await fs.unlink(dest)
-  return fs.symlink(resolvedSrc, dest)
-}
-
-module.exports = copy
-
-
-/***/ }),
-
-/***/ 91715:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromPromise)
-module.exports = {
-  copy: u(__nccwpck_require__(95129)),
-  copySync: __nccwpck_require__(51147)
-}
-
-
-/***/ }),
-
-/***/ 77590:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromPromise)
-const fs = __nccwpck_require__(75490)
-const path = __nccwpck_require__(71017)
-const mkdir = __nccwpck_require__(92081)
-const remove = __nccwpck_require__(79704)
-
-const emptyDir = u(async function emptyDir (dir) {
-  let items
-  try {
-    items = await fs.readdir(dir)
-  } catch (err) {
-    if (err.code !== 'ENOENT') throw err
-    return mkdir.mkdirs(dir)
-  }
-
-  return Promise.all(items.map(item => remove.remove(path.join(dir, item))))
-})
-
-function emptyDirSync (dir) {
-  let items
-  try {
-    items = fs.readdirSync(dir)
-  } catch (err) {
-    if (err.code !== 'ENOENT') throw err
-    return mkdir.mkdirsSync(dir)
-  }
-
-  items.forEach(item => {
-    item = path.join(dir, item)
-    remove.removeSync(item)
-  })
-}
-
-module.exports = {
-  emptyDirSync,
-  emptydirSync: emptyDirSync,
-  emptyDir,
-  emptydir: emptyDir
-}
-
-
-/***/ }),
-
-/***/ 17199:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromPromise)
-const path = __nccwpck_require__(71017)
-const fs = __nccwpck_require__(75490)
-const mkdir = __nccwpck_require__(92081)
-
-async function createFile (file) {
-  let stats
-  try {
-    stats = await fs.stat(file)
-  } catch { }
-  if (stats && stats.isFile()) return
-
-  const dir = path.dirname(file)
-
-  let dirStats = null
-  try {
-    dirStats = await fs.stat(dir)
-  } catch (err) {
-    // if the directory doesn't exist, make it
-    if (err.code === 'ENOENT') {
-      await mkdir.mkdirs(dir)
-      await fs.writeFile(file, '')
-      return
-    } else {
-      throw err
-    }
-  }
-
-  if (dirStats.isDirectory()) {
-    await fs.writeFile(file, '')
-  } else {
-    // parent is not a directory
-    // This is just to cause an internal ENOTDIR error to be thrown
-    await fs.readdir(dir)
-  }
-}
-
-function createFileSync (file) {
-  let stats
-  try {
-    stats = fs.statSync(file)
-  } catch { }
-  if (stats && stats.isFile()) return
-
-  const dir = path.dirname(file)
-  try {
-    if (!fs.statSync(dir).isDirectory()) {
-      // parent is not a directory
-      // This is just to cause an internal ENOTDIR error to be thrown
-      fs.readdirSync(dir)
-    }
-  } catch (err) {
-    // If the stat call above failed because the directory doesn't exist, create it
-    if (err && err.code === 'ENOENT') mkdir.mkdirsSync(dir)
-    else throw err
-  }
-
-  fs.writeFileSync(file, '')
-}
-
-module.exports = {
-  createFile: u(createFile),
-  createFileSync
-}
-
-
-/***/ }),
-
-/***/ 1549:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const { createFile, createFileSync } = __nccwpck_require__(17199)
-const { createLink, createLinkSync } = __nccwpck_require__(95373)
-const { createSymlink, createSymlinkSync } = __nccwpck_require__(85160)
-
-module.exports = {
-  // file
-  createFile,
-  createFileSync,
-  ensureFile: createFile,
-  ensureFileSync: createFileSync,
-  // link
-  createLink,
-  createLinkSync,
-  ensureLink: createLink,
-  ensureLinkSync: createLinkSync,
-  // symlink
-  createSymlink,
-  createSymlinkSync,
-  ensureSymlink: createSymlink,
-  ensureSymlinkSync: createSymlinkSync
-}
-
-
-/***/ }),
-
-/***/ 95373:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromPromise)
-const path = __nccwpck_require__(71017)
-const fs = __nccwpck_require__(75490)
-const mkdir = __nccwpck_require__(92081)
-const { pathExists } = __nccwpck_require__(82334)
-const { areIdentical } = __nccwpck_require__(97204)
-
-async function createLink (srcpath, dstpath) {
-  let dstStat
-  try {
-    dstStat = await fs.lstat(dstpath, { bigint: true })
-  } catch {
-    // ignore error
-  }
-
-  let srcStat
-  try {
-    srcStat = await fs.lstat(srcpath, { bigint: true })
-  } catch (err) {
-    err.message = err.message.replace('lstat', 'ensureLink')
-    throw err
-  }
-
-  if (dstStat && areIdentical(srcStat, dstStat)) return
-
-  const dir = path.dirname(dstpath)
-
-  const dirExists = await pathExists(dir)
-
-  if (!dirExists) {
-    await mkdir.mkdirs(dir)
-  }
-
-  await fs.link(srcpath, dstpath)
-}
-
-function createLinkSync (srcpath, dstpath) {
-  let dstStat
-  try {
-    dstStat = fs.lstatSync(dstpath, { bigint: true })
-  } catch {}
-
-  try {
-    const srcStat = fs.lstatSync(srcpath, { bigint: true })
-    if (dstStat && areIdentical(srcStat, dstStat)) return
-  } catch (err) {
-    err.message = err.message.replace('lstat', 'ensureLink')
-    throw err
-  }
-
-  const dir = path.dirname(dstpath)
-  const dirExists = fs.existsSync(dir)
-  if (dirExists) return fs.linkSync(srcpath, dstpath)
-  mkdir.mkdirsSync(dir)
-
-  return fs.linkSync(srcpath, dstpath)
-}
-
-module.exports = {
-  createLink: u(createLink),
-  createLinkSync
-}
-
-
-/***/ }),
-
-/***/ 97460:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const path = __nccwpck_require__(71017)
-const fs = __nccwpck_require__(75490)
-const { pathExists } = __nccwpck_require__(82334)
-
-const u = (__nccwpck_require__(9046).fromPromise)
-
-/**
- * Function that returns two types of paths, one relative to symlink, and one
- * relative to the current working directory. Checks if path is absolute or
- * relative. If the path is relative, this function checks if the path is
- * relative to symlink or relative to current working directory. This is an
- * initiative to find a smarter `srcpath` to supply when building symlinks.
- * This allows you to determine which path to use out of one of three possible
- * types of source paths. The first is an absolute path. This is detected by
- * `path.isAbsolute()`. When an absolute path is provided, it is checked to
- * see if it exists. If it does it's used, if not an error is returned
- * (callback)/ thrown (sync). The other two options for `srcpath` are a
- * relative url. By default Node's `fs.symlink` works by creating a symlink
- * using `dstpath` and expects the `srcpath` to be relative to the newly
- * created symlink. If you provide a `srcpath` that does not exist on the file
- * system it results in a broken symlink. To minimize this, the function
- * checks to see if the 'relative to symlink' source file exists, and if it
- * does it will use it. If it does not, it checks if there's a file that
- * exists that is relative to the current working directory, if does its used.
- * This preserves the expectations of the original fs.symlink spec and adds
- * the ability to pass in `relative to current working direcotry` paths.
- */
-
-async function symlinkPaths (srcpath, dstpath) {
-  if (path.isAbsolute(srcpath)) {
-    try {
-      await fs.lstat(srcpath)
-    } catch (err) {
-      err.message = err.message.replace('lstat', 'ensureSymlink')
-      throw err
-    }
-
-    return {
-      toCwd: srcpath,
-      toDst: srcpath
-    }
-  }
-
-  const dstdir = path.dirname(dstpath)
-  const relativeToDst = path.join(dstdir, srcpath)
-
-  const exists = await pathExists(relativeToDst)
-  if (exists) {
-    return {
-      toCwd: relativeToDst,
-      toDst: srcpath
-    }
-  }
-
-  try {
-    await fs.lstat(srcpath)
-  } catch (err) {
-    err.message = err.message.replace('lstat', 'ensureSymlink')
-    throw err
-  }
-
-  return {
-    toCwd: srcpath,
-    toDst: path.relative(dstdir, srcpath)
-  }
-}
-
-function symlinkPathsSync (srcpath, dstpath) {
-  if (path.isAbsolute(srcpath)) {
-    const exists = fs.existsSync(srcpath)
-    if (!exists) throw new Error('absolute srcpath does not exist')
-    return {
-      toCwd: srcpath,
-      toDst: srcpath
-    }
-  }
-
-  const dstdir = path.dirname(dstpath)
-  const relativeToDst = path.join(dstdir, srcpath)
-  const exists = fs.existsSync(relativeToDst)
-  if (exists) {
-    return {
-      toCwd: relativeToDst,
-      toDst: srcpath
-    }
-  }
-
-  const srcExists = fs.existsSync(srcpath)
-  if (!srcExists) throw new Error('relative srcpath does not exist')
-  return {
-    toCwd: srcpath,
-    toDst: path.relative(dstdir, srcpath)
-  }
-}
-
-module.exports = {
-  symlinkPaths: u(symlinkPaths),
-  symlinkPathsSync
-}
-
-
-/***/ }),
-
-/***/ 92327:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const fs = __nccwpck_require__(75490)
-const u = (__nccwpck_require__(9046).fromPromise)
-
-async function symlinkType (srcpath, type) {
-  if (type) return type
-
-  let stats
-  try {
-    stats = await fs.lstat(srcpath)
-  } catch {
-    return 'file'
-  }
-
-  return (stats && stats.isDirectory()) ? 'dir' : 'file'
-}
-
-function symlinkTypeSync (srcpath, type) {
-  if (type) return type
-
-  let stats
-  try {
-    stats = fs.lstatSync(srcpath)
-  } catch {
-    return 'file'
-  }
-  return (stats && stats.isDirectory()) ? 'dir' : 'file'
-}
-
-module.exports = {
-  symlinkType: u(symlinkType),
-  symlinkTypeSync
-}
-
-
-/***/ }),
-
-/***/ 85160:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromPromise)
-const path = __nccwpck_require__(71017)
-const fs = __nccwpck_require__(75490)
-
-const { mkdirs, mkdirsSync } = __nccwpck_require__(92081)
-
-const { symlinkPaths, symlinkPathsSync } = __nccwpck_require__(97460)
-const { symlinkType, symlinkTypeSync } = __nccwpck_require__(92327)
-
-const { pathExists } = __nccwpck_require__(82334)
-
-const { areIdentical } = __nccwpck_require__(97204)
-
-async function createSymlink (srcpath, dstpath, type) {
-  let stats
-  try {
-    stats = await fs.lstat(dstpath)
-  } catch { }
-
-  if (stats && stats.isSymbolicLink()) {
-    // When srcpath is relative, resolve it relative to dstpath's directory
-    // (standard symlink behavior) or fall back to cwd if that doesn't exist
-    let srcStat
-    if (path.isAbsolute(srcpath)) {
-      srcStat = await fs.stat(srcpath, { bigint: true })
-    } else {
-      const dstdir = path.dirname(dstpath)
-      const relativeToDst = path.join(dstdir, srcpath)
-      try {
-        srcStat = await fs.stat(relativeToDst, { bigint: true })
-      } catch {
-        srcStat = await fs.stat(srcpath, { bigint: true })
-      }
-    }
-
-    // Following the existing symlink fails with ENOENT if it's broken; in that
-    // case fall through so fs.symlink reports EEXIST, rather than leaking the
-    // stat ENOENT. Any other error is unexpected, so rethrow it.
-    let dstStat
-    try {
-      dstStat = await fs.stat(dstpath, { bigint: true })
-    } catch (err) {
-      if (err.code !== 'ENOENT') throw err
-    }
-    if (dstStat && areIdentical(srcStat, dstStat)) return
-  }
-
-  const relative = await symlinkPaths(srcpath, dstpath)
-  srcpath = relative.toDst
-  const toType = await symlinkType(relative.toCwd, type)
-  const dir = path.dirname(dstpath)
-
-  if (!(await pathExists(dir))) {
-    await mkdirs(dir)
-  }
-
-  return fs.symlink(srcpath, dstpath, toType)
-}
-
-function createSymlinkSync (srcpath, dstpath, type) {
-  let stats
-  try {
-    stats = fs.lstatSync(dstpath)
-  } catch { }
-  if (stats && stats.isSymbolicLink()) {
-    // When srcpath is relative, resolve it relative to dstpath's directory
-    // (standard symlink behavior) or fall back to cwd if that doesn't exist
-    let srcStat
-    if (path.isAbsolute(srcpath)) {
-      srcStat = fs.statSync(srcpath, { bigint: true })
-    } else {
-      const dstdir = path.dirname(dstpath)
-      const relativeToDst = path.join(dstdir, srcpath)
-      try {
-        srcStat = fs.statSync(relativeToDst, { bigint: true })
-      } catch {
-        srcStat = fs.statSync(srcpath, { bigint: true })
-      }
-    }
-
-    // Following the existing symlink fails with ENOENT if it's broken; in that
-    // case fall through so fs.symlinkSync reports EEXIST, rather than leaking the
-    // stat ENOENT. Any other error is unexpected, so rethrow it.
-    let dstStat
-    try {
-      dstStat = fs.statSync(dstpath, { bigint: true })
-    } catch (err) {
-      if (err.code !== 'ENOENT') throw err
-    }
-    if (dstStat && areIdentical(srcStat, dstStat)) return
-  }
-
-  const relative = symlinkPathsSync(srcpath, dstpath)
-  srcpath = relative.toDst
-  type = symlinkTypeSync(relative.toCwd, type)
-  const dir = path.dirname(dstpath)
-  const exists = fs.existsSync(dir)
-  if (exists) return fs.symlinkSync(srcpath, dstpath, type)
-  mkdirsSync(dir)
-  return fs.symlinkSync(srcpath, dstpath, type)
-}
-
-module.exports = {
-  createSymlink: u(createSymlink),
-  createSymlinkSync
-}
-
-
-/***/ }),
-
-/***/ 75490:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-// This is adapted from https://github.com/normalize/mz
-// Copyright (c) 2014-2016 Jonathan Ong me@jongleberry.com and Contributors
-const u = (__nccwpck_require__(9046).fromCallback)
-const fs = __nccwpck_require__(77758)
-
-const api = [
-  'access',
-  'appendFile',
-  'chmod',
-  'chown',
-  'close',
-  'copyFile',
-  'cp',
-  'fchmod',
-  'fchown',
-  'fdatasync',
-  'fstat',
-  'fsync',
-  'ftruncate',
-  'futimes',
-  'glob',
-  'lchmod',
-  'lchown',
-  'lutimes',
-  'link',
-  'lstat',
-  'mkdir',
-  'mkdtemp',
-  'open',
-  'opendir',
-  'readdir',
-  'readFile',
-  'readlink',
-  'realpath',
-  'rename',
-  'rm',
-  'rmdir',
-  'stat',
-  'statfs',
-  'symlink',
-  'truncate',
-  'unlink',
-  'utimes',
-  'writeFile'
-].filter(key => {
-  // Some commands are not available on some systems. Ex:
-  // fs.cp was added in Node.js v16.7.0
-  // fs.statfs was added in Node v19.6.0, v18.15.0
-  // fs.glob was added in Node.js v22.0.0
-  // fs.lchown is not available on at least some Linux
-  return typeof fs[key] === 'function'
-})
-
-// Export cloned fs:
-Object.assign(exports, fs)
-
-// Universalify async methods:
-api.forEach(method => {
-  exports[method] = u(fs[method])
-})
-
-// We differ from mz/fs in that we still ship the old, broken, fs.exists()
-// since we are a drop-in replacement for the native module
-exports.exists = function (filename, callback) {
-  if (typeof callback === 'function') {
-    return fs.exists(filename, callback)
-  }
-  return new Promise(resolve => {
-    return fs.exists(filename, resolve)
-  })
-}
-
-// fs.read(), fs.write(), fs.readv(), & fs.writev() need special treatment due to multiple callback args
-
-exports.read = function (fd, buffer, offset, length, position, callback) {
-  if (typeof callback === 'function') {
-    return fs.read(fd, buffer, offset, length, position, callback)
-  }
-  return new Promise((resolve, reject) => {
-    fs.read(fd, buffer, offset, length, position, (err, bytesRead, buffer) => {
-      if (err) return reject(err)
-      resolve({ bytesRead, buffer })
-    })
-  })
-}
-
-// Function signature can be
-// fs.write(fd, buffer[, offset[, length[, position]]], callback)
-// OR
-// fs.write(fd, string[, position[, encoding]], callback)
-// We need to handle both cases, so we use ...args
-exports.write = function (fd, buffer, ...args) {
-  if (typeof args[args.length - 1] === 'function') {
-    return fs.write(fd, buffer, ...args)
-  }
-
-  return new Promise((resolve, reject) => {
-    fs.write(fd, buffer, ...args, (err, bytesWritten, buffer) => {
-      if (err) return reject(err)
-      resolve({ bytesWritten, buffer })
-    })
-  })
-}
-
-// Function signature is
-// s.readv(fd, buffers[, position], callback)
-// We need to handle the optional arg, so we use ...args
-exports.readv = function (fd, buffers, ...args) {
-  if (typeof args[args.length - 1] === 'function') {
-    return fs.readv(fd, buffers, ...args)
-  }
-
-  return new Promise((resolve, reject) => {
-    fs.readv(fd, buffers, ...args, (err, bytesRead, buffers) => {
-      if (err) return reject(err)
-      resolve({ bytesRead, buffers })
-    })
-  })
-}
-
-// Function signature is
-// s.writev(fd, buffers[, position], callback)
-// We need to handle the optional arg, so we use ...args
-exports.writev = function (fd, buffers, ...args) {
-  if (typeof args[args.length - 1] === 'function') {
-    return fs.writev(fd, buffers, ...args)
-  }
-
-  return new Promise((resolve, reject) => {
-    fs.writev(fd, buffers, ...args, (err, bytesWritten, buffers) => {
-      if (err) return reject(err)
-      resolve({ bytesWritten, buffers })
-    })
-  })
-}
-
-// fs.realpath.native sometimes not available if fs is monkey-patched
-if (typeof fs.realpath.native === 'function') {
-  exports.realpath.native = u(fs.realpath.native)
-} else {
-  process.emitWarning(
-    'fs.realpath.native is not a function. Is fs being monkey-patched?',
-    'Warning', 'fs-extra-WARN0003'
-  )
-}
-
-
-/***/ }),
-
-/***/ 67569:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-module.exports = {
-  // Export promiseified graceful-fs:
-  ...__nccwpck_require__(75490),
-  // Export extra methods:
-  ...__nccwpck_require__(91715),
-  ...__nccwpck_require__(77590),
-  ...__nccwpck_require__(1549),
-  ...__nccwpck_require__(60983),
-  ...__nccwpck_require__(92081),
-  ...__nccwpck_require__(8430),
-  ...__nccwpck_require__(91417),
-  ...__nccwpck_require__(82334),
-  ...__nccwpck_require__(79704)
-}
-
-
-/***/ }),
-
-/***/ 60983:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromPromise)
-const jsonFile = __nccwpck_require__(64435)
-
-jsonFile.outputJson = u(__nccwpck_require__(96004))
-jsonFile.outputJsonSync = __nccwpck_require__(44934)
-// aliases
-jsonFile.outputJSON = jsonFile.outputJson
-jsonFile.outputJSONSync = jsonFile.outputJsonSync
-jsonFile.writeJSON = jsonFile.writeJson
-jsonFile.writeJSONSync = jsonFile.writeJsonSync
-jsonFile.readJSON = jsonFile.readJson
-jsonFile.readJSONSync = jsonFile.readJsonSync
-
-module.exports = jsonFile
-
-
-/***/ }),
-
-/***/ 64435:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const jsonFile = __nccwpck_require__(26160)
-
-module.exports = {
-  // jsonfile exports
-  readJson: jsonFile.readFile,
-  readJsonSync: jsonFile.readFileSync,
-  writeJson: jsonFile.writeFile,
-  writeJsonSync: jsonFile.writeFileSync
-}
-
-
-/***/ }),
-
-/***/ 44934:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const { stringify } = __nccwpck_require__(35902)
-const { outputFileSync } = __nccwpck_require__(91417)
-
-function outputJsonSync (file, data, options) {
-  const str = stringify(data, options)
-
-  outputFileSync(file, str, options)
-}
-
-module.exports = outputJsonSync
-
-
-/***/ }),
-
-/***/ 96004:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const { stringify } = __nccwpck_require__(35902)
-const { outputFile } = __nccwpck_require__(91417)
-
-async function outputJson (file, data, options = {}) {
-  const str = stringify(data, options)
-
-  await outputFile(file, str, options)
-}
-
-module.exports = outputJson
-
-
-/***/ }),
-
-/***/ 92081:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-const u = (__nccwpck_require__(9046).fromPromise)
-const { makeDir: _makeDir, makeDirSync } = __nccwpck_require__(83708)
-const makeDir = u(_makeDir)
-
-module.exports = {
-  mkdirs: makeDir,
-  mkdirsSync: makeDirSync,
-  // alias
-  mkdirp: makeDir,
-  mkdirpSync: makeDirSync,
-  ensureDir: makeDir,
-  ensureDirSync: makeDirSync
-}
-
-
-/***/ }),
-
-/***/ 83708:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-const fs = __nccwpck_require__(75490)
-const { checkPath } = __nccwpck_require__(32197)
-
-const getMode = options => {
-  const defaults = { mode: 0o777 }
-  if (typeof options === 'number') return options
-  return ({ ...defaults, ...options }).mode
-}
-
-module.exports.makeDir = async (dir, options) => {
-  checkPath(dir)
-
-  return fs.mkdir(dir, {
-    mode: getMode(options),
-    recursive: true
-  })
-}
-
-module.exports.makeDirSync = (dir, options) => {
-  checkPath(dir)
-
-  return fs.mkdirSync(dir, {
-    mode: getMode(options),
-    recursive: true
-  })
-}
-
-
-/***/ }),
-
-/***/ 32197:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-// Adapted from https://github.com/sindresorhus/make-dir
-// Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-const path = __nccwpck_require__(71017)
-
-// https://github.com/nodejs/node/issues/8987
-// https://github.com/libuv/libuv/pull/1088
-module.exports.checkPath = function checkPath (pth) {
-  if (process.platform === 'win32') {
-    const pathHasInvalidWinCharacters = /[<>:"|?*]/.test(pth.replace(path.parse(pth).root, ''))
-
-    if (pathHasInvalidWinCharacters) {
-      const error = new Error(`Path contains invalid characters: ${pth}`)
-      error.code = 'EINVAL'
-      throw error
-    }
-  }
-}
-
-
-/***/ }),
-
-/***/ 8430:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromPromise)
-module.exports = {
-  move: u(__nccwpck_require__(52962)),
-  moveSync: __nccwpck_require__(95495)
-}
-
-
-/***/ }),
-
-/***/ 95495:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const fs = __nccwpck_require__(77758)
-const path = __nccwpck_require__(71017)
-const copySync = (__nccwpck_require__(91715).copySync)
-const removeSync = (__nccwpck_require__(79704).removeSync)
-const mkdirpSync = (__nccwpck_require__(92081).mkdirpSync)
-const stat = __nccwpck_require__(97204)
-
-function moveSync (src, dest, opts) {
-  opts = opts || {}
-  const overwrite = opts.overwrite || opts.clobber || false
-
-  const { srcStat, isChangingCase = false } = stat.checkPathsSync(src, dest, 'move', opts)
-  stat.checkParentPathsSync(src, srcStat, dest, 'move')
-  if (!isParentRoot(dest)) mkdirpSync(path.dirname(dest))
-  return doRename(src, dest, overwrite, isChangingCase)
-}
-
-function isParentRoot (dest) {
-  const parent = path.dirname(dest)
-  const parsedPath = path.parse(parent)
-  return parsedPath.root === parent
-}
-
-function doRename (src, dest, overwrite, isChangingCase) {
-  if (isChangingCase) return rename(src, dest, overwrite)
-  if (overwrite) {
-    removeSync(dest)
-    return rename(src, dest, overwrite)
-  }
-  if (fs.existsSync(dest)) throw new Error('dest already exists.')
-  return rename(src, dest, overwrite)
-}
-
-function rename (src, dest, overwrite) {
-  try {
-    fs.renameSync(src, dest)
-  } catch (err) {
-    if (err.code !== 'EXDEV') throw err
-    return moveAcrossDevice(src, dest, overwrite)
-  }
-}
-
-function moveAcrossDevice (src, dest, overwrite) {
-  const opts = {
-    overwrite,
-    errorOnExist: true,
-    preserveTimestamps: true
-  }
-  copySync(src, dest, opts)
-  return removeSync(src)
-}
-
-module.exports = moveSync
-
-
-/***/ }),
-
-/***/ 52962:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const fs = __nccwpck_require__(75490)
-const path = __nccwpck_require__(71017)
-const { copy } = __nccwpck_require__(91715)
-const { remove } = __nccwpck_require__(79704)
-const { mkdirp } = __nccwpck_require__(92081)
-const { pathExists } = __nccwpck_require__(82334)
-const stat = __nccwpck_require__(97204)
-
-async function move (src, dest, opts = {}) {
-  const overwrite = opts.overwrite || opts.clobber || false
-
-  const { srcStat, isChangingCase = false } = await stat.checkPaths(src, dest, 'move', opts)
-
-  await stat.checkParentPaths(src, srcStat, dest, 'move')
-
-  // If the parent of dest is not root, make sure it exists before proceeding
-  const destParent = path.dirname(dest)
-  const parsedParentPath = path.parse(destParent)
-  if (parsedParentPath.root !== destParent) {
-    await mkdirp(destParent)
-  }
-
-  return doRename(src, dest, overwrite, isChangingCase)
-}
-
-async function doRename (src, dest, overwrite, isChangingCase) {
-  if (!isChangingCase) {
-    if (overwrite) {
-      await remove(dest)
-    } else if (await pathExists(dest)) {
-      throw new Error('dest already exists.')
-    }
-  }
-
-  try {
-    // Try w/ rename first, and try copy + remove if EXDEV
-    await fs.rename(src, dest)
-  } catch (err) {
-    if (err.code !== 'EXDEV') {
-      throw err
-    }
-    await moveAcrossDevice(src, dest, overwrite)
-  }
-}
-
-async function moveAcrossDevice (src, dest, overwrite) {
-  const opts = {
-    overwrite,
-    errorOnExist: true,
-    preserveTimestamps: true
-  }
-
-  await copy(src, dest, opts)
-  return remove(src)
-}
-
-module.exports = move
-
-
-/***/ }),
-
-/***/ 91417:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromPromise)
-const fs = __nccwpck_require__(75490)
-const path = __nccwpck_require__(71017)
-const mkdir = __nccwpck_require__(92081)
-const pathExists = (__nccwpck_require__(82334).pathExists)
-
-async function outputFile (file, data, encoding = 'utf-8') {
-  const dir = path.dirname(file)
-
-  if (!(await pathExists(dir))) {
-    await mkdir.mkdirs(dir)
-  }
-
-  return fs.writeFile(file, data, encoding)
-}
-
-function outputFileSync (file, ...args) {
-  const dir = path.dirname(file)
-  if (!fs.existsSync(dir)) {
-    mkdir.mkdirsSync(dir)
-  }
-
-  fs.writeFileSync(file, ...args)
-}
-
-module.exports = {
-  outputFile: u(outputFile),
-  outputFileSync
-}
-
-
-/***/ }),
-
-/***/ 82334:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-const u = (__nccwpck_require__(9046).fromPromise)
-const fs = __nccwpck_require__(75490)
-
-function pathExists (path) {
-  return fs.access(path).then(() => true).catch(() => false)
-}
-
-module.exports = {
-  pathExists: u(pathExists),
-  pathExistsSync: fs.existsSync
-}
-
-
-/***/ }),
-
-/***/ 79704:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const fs = __nccwpck_require__(77758)
-const u = (__nccwpck_require__(9046).fromCallback)
-
-function remove (path, callback) {
-  fs.rm(path, { recursive: true, force: true }, callback)
-}
-
-function removeSync (path) {
-  fs.rmSync(path, { recursive: true, force: true })
-}
-
-module.exports = {
-  remove: u(remove),
-  removeSync
-}
-
-
-/***/ }),
-
-/***/ 25099:
-/***/ ((module) => {
-
-"use strict";
-
-
-// https://github.com/jprichardson/node-fs-extra/issues/1056
-// Performing parallel operations on each item of an async iterator is
-// surprisingly hard; you need to have handlers in place to avoid getting an
-// UnhandledPromiseRejectionWarning.
-// NOTE: This function does not presently handle return values, only errors
-async function asyncIteratorConcurrentProcess (iterator, fn) {
-  const promises = []
-  for await (const item of iterator) {
-    promises.push(
-      fn(item).then(
-        () => null,
-        (err) => err ?? new Error('unknown error')
-      )
-    )
-  }
-  await Promise.all(
-    promises.map((promise) =>
-      promise.then((possibleErr) => {
-        if (possibleErr !== null) throw possibleErr
-      })
-    )
-  )
-}
-
-module.exports = {
-  asyncIteratorConcurrentProcess
-}
-
-
-/***/ }),
-
-/***/ 97204:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const fs = __nccwpck_require__(75490)
-const path = __nccwpck_require__(71017)
-const u = (__nccwpck_require__(9046).fromPromise)
-
-function getStats (src, dest, opts) {
-  const statFunc = opts.dereference
-    ? (file) => fs.stat(file, { bigint: true })
-    : (file) => fs.lstat(file, { bigint: true })
-  return Promise.all([
-    statFunc(src),
-    statFunc(dest).catch(err => {
-      if (err.code === 'ENOENT') return null
-      throw err
-    })
-  ]).then(([srcStat, destStat]) => ({ srcStat, destStat }))
-}
-
-function getStatsSync (src, dest, opts) {
-  let destStat
-  const statFunc = opts.dereference
-    ? (file) => fs.statSync(file, { bigint: true })
-    : (file) => fs.lstatSync(file, { bigint: true })
-  const srcStat = statFunc(src)
-  try {
-    destStat = statFunc(dest)
-  } catch (err) {
-    if (err.code === 'ENOENT') return { srcStat, destStat: null }
-    throw err
-  }
-  return { srcStat, destStat }
-}
-
-async function checkPaths (src, dest, funcName, opts) {
-  const { srcStat, destStat } = await getStats(src, dest, opts)
-  if (destStat) {
-    if (areIdentical(srcStat, destStat)) {
-      const srcBaseName = path.basename(src)
-      const destBaseName = path.basename(dest)
-      if (funcName === 'move' &&
-        srcBaseName !== destBaseName &&
-        isCosmeticRename(srcBaseName, destBaseName)) {
-        return { srcStat, destStat, isChangingCase: true }
-      }
-      throw new Error('Source and destination must not be the same.')
-    }
-    if (srcStat.isDirectory() && !destStat.isDirectory()) {
-      throw new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`)
-    }
-    if (!srcStat.isDirectory() && destStat.isDirectory()) {
-      throw new Error(`Cannot overwrite directory '${dest}' with non-directory '${src}'.`)
-    }
-  }
-
-  if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
-    throw new Error(errMsg(src, dest, funcName))
-  }
-
-  return { srcStat, destStat }
-}
-
-function checkPathsSync (src, dest, funcName, opts) {
-  const { srcStat, destStat } = getStatsSync(src, dest, opts)
-
-  if (destStat) {
-    if (areIdentical(srcStat, destStat)) {
-      const srcBaseName = path.basename(src)
-      const destBaseName = path.basename(dest)
-      if (funcName === 'move' &&
-        srcBaseName !== destBaseName &&
-        isCosmeticRename(srcBaseName, destBaseName)) {
-        return { srcStat, destStat, isChangingCase: true }
-      }
-      throw new Error('Source and destination must not be the same.')
-    }
-    if (srcStat.isDirectory() && !destStat.isDirectory()) {
-      throw new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`)
-    }
-    if (!srcStat.isDirectory() && destStat.isDirectory()) {
-      throw new Error(`Cannot overwrite directory '${dest}' with non-directory '${src}'.`)
-    }
-  }
-
-  if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
-    throw new Error(errMsg(src, dest, funcName))
-  }
-  return { srcStat, destStat }
-}
-
-// True when src and dest refer to the same inode and their basenames only
-// differ in letter case or Unicode normalization form. Some filesystems
-// (APFS, most Windows filesystems) silently normalize case and/or Unicode
-// representation, so a rename that looks like a no-op string-wise is
-// actually the user renaming a file to a visually-identical but
-// differently-encoded name, not a genuine "same path" error.
-function isCosmeticRename (srcBaseName, destBaseName) {
-  return srcBaseName.toLowerCase().normalize('NFC') === destBaseName.toLowerCase().normalize('NFC')
-}
-
-// recursively check if dest parent is a subdirectory of src.
-// It works for all file types including symlinks since it
-// checks the src and dest inodes. It starts from the deepest
-// parent and stops once it reaches the src parent or the root path.
-async function checkParentPaths (src, srcStat, dest, funcName) {
-  const srcParent = path.resolve(path.dirname(src))
-  const destParent = path.resolve(path.dirname(dest))
-  if (destParent === srcParent || destParent === path.parse(destParent).root) return
-
-  let destStat
-  try {
-    destStat = await fs.stat(destParent, { bigint: true })
-  } catch (err) {
-    // The destination parent does not exist yet, but a deeper ancestor might
-    // (e.g. when it is a symlink into the source tree). Keep walking up so the
-    // self-subdirectory check is not bypassed.
-    if (err.code === 'ENOENT') return checkParentPaths(src, srcStat, destParent, funcName)
-    throw err
-  }
-
-  if (areIdentical(srcStat, destStat)) {
-    throw new Error(errMsg(src, dest, funcName))
-  }
-
-  return checkParentPaths(src, srcStat, destParent, funcName)
-}
-
-function checkParentPathsSync (src, srcStat, dest, funcName) {
-  const srcParent = path.resolve(path.dirname(src))
-  const destParent = path.resolve(path.dirname(dest))
-  if (destParent === srcParent || destParent === path.parse(destParent).root) return
-  let destStat
-  try {
-    destStat = fs.statSync(destParent, { bigint: true })
-  } catch (err) {
-    // The destination parent does not exist yet, but a deeper ancestor might
-    // (e.g. when it is a symlink into the source tree). Keep walking up so the
-    // self-subdirectory check is not bypassed.
-    if (err.code === 'ENOENT') return checkParentPathsSync(src, srcStat, destParent, funcName)
-    throw err
-  }
-  if (areIdentical(srcStat, destStat)) {
-    throw new Error(errMsg(src, dest, funcName))
-  }
-  return checkParentPathsSync(src, srcStat, destParent, funcName)
-}
-
-function areIdentical (srcStat, destStat) {
-  // stat.dev can be 0n on windows when node version >= 22.x.x
-  return destStat.ino !== undefined && destStat.dev !== undefined && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev
-}
-
-// return true if dest is a subdir of src, otherwise false.
-// It only checks the path strings.
-function isSrcSubdir (src, dest) {
-  const srcArr = path.resolve(src).split(path.sep).filter(i => i)
-  const destArr = path.resolve(dest).split(path.sep).filter(i => i)
-  return srcArr.every((cur, i) => destArr[i] === cur)
-}
-
-function errMsg (src, dest, funcName) {
-  return `Cannot ${funcName} '${src}' to a subdirectory of itself, '${dest}'.`
-}
-
-module.exports = {
-  // checkPaths
-  checkPaths: u(checkPaths),
-  checkPathsSync,
-  // checkParent
-  checkParentPaths: u(checkParentPaths),
-  checkParentPathsSync,
-  // Misc
-  isSrcSubdir,
-  areIdentical
-}
-
-
-/***/ }),
-
-/***/ 21950:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const fs = __nccwpck_require__(75490)
-const u = (__nccwpck_require__(9046).fromPromise)
-
-async function utimesMillis (path, atime, mtime) {
-  const fd = await fs.open(path, 'r+')
-
-  let error = null
-
-  try {
-    await fs.futimes(fd, atime, mtime)
-  } catch (futimesErr) {
-    error = futimesErr
-  } finally {
-    try {
-      await fs.close(fd)
-    } catch (closeErr) {
-      if (!error) error = closeErr
-    }
-  }
-
-  if (error) {
-    throw error
-  }
-}
-
-function utimesMillisSync (path, atime, mtime) {
-  const fd = fs.openSync(path, 'r+')
-
-  let error = null
-
-  try {
-    fs.futimesSync(fd, atime, mtime)
-  } catch (futimesErr) {
-    error = futimesErr
-  } finally {
-    try {
-      fs.closeSync(fd)
-    } catch (closeErr) {
-      if (!error) error = closeErr
-    }
-  }
-
-  if (error) {
-    throw error
-  }
-}
-
-module.exports = {
-  utimesMillis: u(utimesMillis),
-  utimesMillisSync
-}
-
 
 /***/ }),
 
@@ -15192,18 +13455,6 @@ function ascending(a, b)
 function descending(a, b)
 {
   return -1 * ascending(a, b);
-}
-
-
-/***/ }),
-
-/***/ 25995:
-/***/ ((module) => {
-
-module.exports = r => {
-  const n = process.versions.node.split('.').map(x => parseInt(x, 10))
-  r = r.split('.').map(x => parseInt(x, 10))
-  return n[0] > r[0] || (n[0] === r[0] && (n[1] > r[1] || (n[1] === r[1] && n[2] >= r[2])))
 }
 
 
@@ -28452,7 +26703,7 @@ QuerystringParser.prototype.end = function() {
 
 /***/ }),
 
-/***/ 43338:
+/***/ 89618:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -28475,24 +26726,18 @@ function copySync (src, dest, opts) {
 
   // Warn about using preserveTimestamps on 32-bit node
   if (opts.preserveTimestamps && process.arch === 'ia32') {
-    console.warn(`fs-extra: Using the preserveTimestamps option in 32-bit node is not recommended;\n
-    see https://github.com/jprichardson/node-fs-extra/issues/269`)
+    process.emitWarning(
+      'Using the preserveTimestamps option in 32-bit node is not recommended;\n\n' +
+      '\tsee https://github.com/jprichardson/node-fs-extra/issues/269',
+      'Warning', 'fs-extra-WARN0002'
+    )
   }
 
-  const { srcStat, destStat } = stat.checkPathsSync(src, dest, 'copy')
+  const { srcStat, destStat } = stat.checkPathsSync(src, dest, 'copy', opts)
   stat.checkParentPathsSync(src, srcStat, dest, 'copy')
-  return handleFilterAndCopy(destStat, src, dest, opts)
-}
-
-function handleFilterAndCopy (destStat, src, dest, opts) {
   if (opts.filter && !opts.filter(src, dest)) return
   const destParent = path.dirname(dest)
   if (!fs.existsSync(destParent)) mkdirsSync(destParent)
-  return startCopy(destStat, src, dest, opts)
-}
-
-function startCopy (destStat, src, dest, opts) {
-  if (opts.filter && !opts.filter(src, dest)) return
   return getStats(destStat, src, dest, opts)
 }
 
@@ -28505,6 +26750,9 @@ function getStats (destStat, src, dest, opts) {
            srcStat.isCharacterDevice() ||
            srcStat.isBlockDevice()) return onFile(srcStat, destStat, src, dest, opts)
   else if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts)
+  else if (srcStat.isSocket()) throw new Error(`Cannot copy a socket file: ${src}`)
+  else if (srcStat.isFIFO()) throw new Error(`Cannot copy a FIFO pipe: ${src}`)
+  throw new Error(`Unknown file: ${src}`)
 }
 
 function onFile (srcStat, destStat, src, dest, opts) {
@@ -28557,9 +26805,6 @@ function setDestTimestamps (src, dest) {
 
 function onDir (srcStat, destStat, src, dest, opts) {
   if (!destStat) return mkDirAndCopy(srcStat.mode, src, dest, opts)
-  if (destStat && !destStat.isDirectory()) {
-    throw new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`)
-  }
   return copyDir(src, dest, opts)
 }
 
@@ -28570,14 +26815,25 @@ function mkDirAndCopy (srcMode, src, dest, opts) {
 }
 
 function copyDir (src, dest, opts) {
-  fs.readdirSync(src).forEach(item => copyDirItem(item, src, dest, opts))
+  const dir = fs.opendirSync(src)
+
+  try {
+    let dirent
+
+    while ((dirent = dir.readSync()) !== null) {
+      copyDirItem(dirent.name, src, dest, opts)
+    }
+  } finally {
+    dir.closeSync()
+  }
 }
 
 function copyDirItem (item, src, dest, opts) {
   const srcItem = path.join(src, item)
   const destItem = path.join(dest, item)
-  const { destStat } = stat.checkPathsSync(srcItem, destItem, 'copy')
-  return startCopy(destStat, srcItem, destItem, opts)
+  if (opts.filter && !opts.filter(srcItem, destItem)) return
+  const { destStat } = stat.checkPathsSync(srcItem, destItem, 'copy', opts)
+  return getStats(destStat, srcItem, destItem, opts)
 }
 
 function onLink (destStat, src, dest, opts) {
@@ -28602,15 +26858,20 @@ function onLink (destStat, src, dest, opts) {
     if (opts.dereference) {
       resolvedDest = path.resolve(process.cwd(), resolvedDest)
     }
-    if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
-      throw new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`)
-    }
+    // If both symlinks resolve to the same target, they are still distinct symlinks
+    // that can be copied/overwritten. Only check subdirectory constraints when
+    // the resolved paths are different.
+    if (resolvedSrc !== resolvedDest) {
+      if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
+        throw new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`)
+      }
 
-    // prevent copy if src is a subdir of dest since unlinking
-    // dest in this case would result in removing src contents
-    // and therefore a broken symlink would be created.
-    if (fs.statSync(dest).isDirectory() && stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
-      throw new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`)
+      // prevent copy if src is a subdir of dest since unlinking
+      // dest in this case would result in removing src contents
+      // and therefore a broken symlink would be created.
+      if (stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
+        throw new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`)
+      }
     }
     return copyLink(resolvedSrc, dest)
   }
@@ -28626,252 +26887,187 @@ module.exports = copySync
 
 /***/ }),
 
-/***/ 11135:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-module.exports = {
-  copySync: __nccwpck_require__(43338)
-}
-
-
-/***/ }),
-
 /***/ 38834:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-const fs = __nccwpck_require__(77758)
+const fs = __nccwpck_require__(61176)
 const path = __nccwpck_require__(71017)
-const mkdirs = (__nccwpck_require__(98605).mkdirs)
-const pathExists = (__nccwpck_require__(43835).pathExists)
-const utimesMillis = (__nccwpck_require__(52548).utimesMillis)
+const { mkdirs } = __nccwpck_require__(98605)
+const { pathExists } = __nccwpck_require__(43835)
+const { utimesMillis } = __nccwpck_require__(52548)
 const stat = __nccwpck_require__(73901)
+const { asyncIteratorConcurrentProcess } = __nccwpck_require__(21860)
 
-function copy (src, dest, opts, cb) {
-  if (typeof opts === 'function' && !cb) {
-    cb = opts
-    opts = {}
-  } else if (typeof opts === 'function') {
+async function copy (src, dest, opts = {}) {
+  if (typeof opts === 'function') {
     opts = { filter: opts }
   }
-
-  cb = cb || function () {}
-  opts = opts || {}
 
   opts.clobber = 'clobber' in opts ? !!opts.clobber : true // default to true for now
   opts.overwrite = 'overwrite' in opts ? !!opts.overwrite : opts.clobber // overwrite falls back to clobber
 
   // Warn about using preserveTimestamps on 32-bit node
   if (opts.preserveTimestamps && process.arch === 'ia32') {
-    console.warn(`fs-extra: Using the preserveTimestamps option in 32-bit node is not recommended;\n
-    see https://github.com/jprichardson/node-fs-extra/issues/269`)
+    process.emitWarning(
+      'Using the preserveTimestamps option in 32-bit node is not recommended;\n\n' +
+      '\tsee https://github.com/jprichardson/node-fs-extra/issues/269',
+      'Warning', 'fs-extra-WARN0001'
+    )
   }
 
-  stat.checkPaths(src, dest, 'copy', (err, stats) => {
-    if (err) return cb(err)
-    const { srcStat, destStat } = stats
-    stat.checkParentPaths(src, srcStat, dest, 'copy', err => {
-      if (err) return cb(err)
-      if (opts.filter) return handleFilter(checkParentDir, destStat, src, dest, opts, cb)
-      return checkParentDir(destStat, src, dest, opts, cb)
-    })
-  })
-}
+  const { srcStat, destStat } = await stat.checkPaths(src, dest, 'copy', opts)
 
-function checkParentDir (destStat, src, dest, opts, cb) {
+  await stat.checkParentPaths(src, srcStat, dest, 'copy')
+
+  const include = await runFilter(src, dest, opts)
+
+  if (!include) return
+
+  // check if the parent of dest exists, and create it if it doesn't exist
   const destParent = path.dirname(dest)
-  pathExists(destParent, (err, dirExists) => {
-    if (err) return cb(err)
-    if (dirExists) return startCopy(destStat, src, dest, opts, cb)
-    mkdirs(destParent, err => {
-      if (err) return cb(err)
-      return startCopy(destStat, src, dest, opts, cb)
-    })
-  })
-}
-
-function handleFilter (onInclude, destStat, src, dest, opts, cb) {
-  Promise.resolve(opts.filter(src, dest)).then(include => {
-    if (include) return onInclude(destStat, src, dest, opts, cb)
-    return cb()
-  }, error => cb(error))
-}
-
-function startCopy (destStat, src, dest, opts, cb) {
-  if (opts.filter) return handleFilter(getStats, destStat, src, dest, opts, cb)
-  return getStats(destStat, src, dest, opts, cb)
-}
-
-function getStats (destStat, src, dest, opts, cb) {
-  const stat = opts.dereference ? fs.stat : fs.lstat
-  stat(src, (err, srcStat) => {
-    if (err) return cb(err)
-
-    if (srcStat.isDirectory()) return onDir(srcStat, destStat, src, dest, opts, cb)
-    else if (srcStat.isFile() ||
-             srcStat.isCharacterDevice() ||
-             srcStat.isBlockDevice()) return onFile(srcStat, destStat, src, dest, opts, cb)
-    else if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts, cb)
-  })
-}
-
-function onFile (srcStat, destStat, src, dest, opts, cb) {
-  if (!destStat) return copyFile(srcStat, src, dest, opts, cb)
-  return mayCopyFile(srcStat, src, dest, opts, cb)
-}
-
-function mayCopyFile (srcStat, src, dest, opts, cb) {
-  if (opts.overwrite) {
-    fs.unlink(dest, err => {
-      if (err) return cb(err)
-      return copyFile(srcStat, src, dest, opts, cb)
-    })
-  } else if (opts.errorOnExist) {
-    return cb(new Error(`'${dest}' already exists`))
-  } else return cb()
-}
-
-function copyFile (srcStat, src, dest, opts, cb) {
-  fs.copyFile(src, dest, err => {
-    if (err) return cb(err)
-    if (opts.preserveTimestamps) return handleTimestampsAndMode(srcStat.mode, src, dest, cb)
-    return setDestMode(dest, srcStat.mode, cb)
-  })
-}
-
-function handleTimestampsAndMode (srcMode, src, dest, cb) {
-  // Make sure the file is writable before setting the timestamp
-  // otherwise open fails with EPERM when invoked with 'r+'
-  // (through utimes call)
-  if (fileIsNotWritable(srcMode)) {
-    return makeFileWritable(dest, srcMode, err => {
-      if (err) return cb(err)
-      return setDestTimestampsAndMode(srcMode, src, dest, cb)
-    })
+  const dirExists = await pathExists(destParent)
+  if (!dirExists) {
+    await mkdirs(destParent)
   }
-  return setDestTimestampsAndMode(srcMode, src, dest, cb)
+
+  await getStatsAndPerformCopy(destStat, src, dest, opts)
+}
+
+async function runFilter (src, dest, opts) {
+  if (!opts.filter) return true
+  return opts.filter(src, dest)
+}
+
+async function getStatsAndPerformCopy (destStat, src, dest, opts) {
+  const statFn = opts.dereference ? fs.stat : fs.lstat
+  const srcStat = await statFn(src)
+
+  if (srcStat.isDirectory()) return onDir(srcStat, destStat, src, dest, opts)
+
+  if (
+    srcStat.isFile() ||
+    srcStat.isCharacterDevice() ||
+    srcStat.isBlockDevice()
+  ) return onFile(srcStat, destStat, src, dest, opts)
+
+  if (srcStat.isSymbolicLink()) return onLink(destStat, src, dest, opts)
+  if (srcStat.isSocket()) throw new Error(`Cannot copy a socket file: ${src}`)
+  if (srcStat.isFIFO()) throw new Error(`Cannot copy a FIFO pipe: ${src}`)
+  throw new Error(`Unknown file: ${src}`)
+}
+
+async function onFile (srcStat, destStat, src, dest, opts) {
+  if (!destStat) return copyFile(srcStat, src, dest, opts)
+
+  if (opts.overwrite) {
+    await fs.unlink(dest)
+    return copyFile(srcStat, src, dest, opts)
+  }
+  if (opts.errorOnExist) {
+    throw new Error(`'${dest}' already exists`)
+  }
+}
+
+async function copyFile (srcStat, src, dest, opts) {
+  await fs.copyFile(src, dest)
+  if (opts.preserveTimestamps) {
+    // Make sure the file is writable before setting the timestamp
+    // otherwise open fails with EPERM when invoked with 'r+'
+    // (through utimes call)
+    if (fileIsNotWritable(srcStat.mode)) {
+      await makeFileWritable(dest, srcStat.mode)
+    }
+
+    // Set timestamps and mode correspondingly
+
+    // Note that The initial srcStat.atime cannot be trusted
+    // because it is modified by the read(2) system call
+    // (See https://nodejs.org/api/fs.html#fs_stat_time_values)
+    const updatedSrcStat = await fs.stat(src)
+    await utimesMillis(dest, updatedSrcStat.atime, updatedSrcStat.mtime)
+  }
+
+  return fs.chmod(dest, srcStat.mode)
 }
 
 function fileIsNotWritable (srcMode) {
   return (srcMode & 0o200) === 0
 }
 
-function makeFileWritable (dest, srcMode, cb) {
-  return setDestMode(dest, srcMode | 0o200, cb)
+function makeFileWritable (dest, srcMode) {
+  return fs.chmod(dest, srcMode | 0o200)
 }
 
-function setDestTimestampsAndMode (srcMode, src, dest, cb) {
-  setDestTimestamps(src, dest, err => {
-    if (err) return cb(err)
-    return setDestMode(dest, srcMode, cb)
-  })
-}
-
-function setDestMode (dest, srcMode, cb) {
-  return fs.chmod(dest, srcMode, cb)
-}
-
-function setDestTimestamps (src, dest, cb) {
-  // The initial srcStat.atime cannot be trusted
-  // because it is modified by the read(2) system call
-  // (See https://nodejs.org/api/fs.html#fs_stat_time_values)
-  fs.stat(src, (err, updatedSrcStat) => {
-    if (err) return cb(err)
-    return utimesMillis(dest, updatedSrcStat.atime, updatedSrcStat.mtime, cb)
-  })
-}
-
-function onDir (srcStat, destStat, src, dest, opts, cb) {
-  if (!destStat) return mkDirAndCopy(srcStat.mode, src, dest, opts, cb)
-  if (destStat && !destStat.isDirectory()) {
-    return cb(new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`))
+async function onDir (srcStat, destStat, src, dest, opts) {
+  // the dest directory might not exist, create it
+  if (!destStat) {
+    await fs.mkdir(dest)
   }
-  return copyDir(src, dest, opts, cb)
-}
 
-function mkDirAndCopy (srcMode, src, dest, opts, cb) {
-  fs.mkdir(dest, err => {
-    if (err) return cb(err)
-    copyDir(src, dest, opts, err => {
-      if (err) return cb(err)
-      return setDestMode(dest, srcMode, cb)
-    })
-  })
-}
+  // iterate through the files in the current directory to copy everything
+  await asyncIteratorConcurrentProcess(await fs.opendir(src), async (item) => {
+    const srcItem = path.join(src, item.name)
+    const destItem = path.join(dest, item.name)
 
-function copyDir (src, dest, opts, cb) {
-  fs.readdir(src, (err, items) => {
-    if (err) return cb(err)
-    return copyDirItems(items, src, dest, opts, cb)
-  })
-}
-
-function copyDirItems (items, src, dest, opts, cb) {
-  const item = items.pop()
-  if (!item) return cb()
-  return copyDirItem(items, item, src, dest, opts, cb)
-}
-
-function copyDirItem (items, item, src, dest, opts, cb) {
-  const srcItem = path.join(src, item)
-  const destItem = path.join(dest, item)
-  stat.checkPaths(srcItem, destItem, 'copy', (err, stats) => {
-    if (err) return cb(err)
-    const { destStat } = stats
-    startCopy(destStat, srcItem, destItem, opts, err => {
-      if (err) return cb(err)
-      return copyDirItems(items, src, dest, opts, cb)
-    })
-  })
-}
-
-function onLink (destStat, src, dest, opts, cb) {
-  fs.readlink(src, (err, resolvedSrc) => {
-    if (err) return cb(err)
-    if (opts.dereference) {
-      resolvedSrc = path.resolve(process.cwd(), resolvedSrc)
-    }
-
-    if (!destStat) {
-      return fs.symlink(resolvedSrc, dest, cb)
-    } else {
-      fs.readlink(dest, (err, resolvedDest) => {
-        if (err) {
-          // dest exists and is a regular file or directory,
-          // Windows may throw UNKNOWN error. If dest already exists,
-          // fs throws error anyway, so no need to guard against it here.
-          if (err.code === 'EINVAL' || err.code === 'UNKNOWN') return fs.symlink(resolvedSrc, dest, cb)
-          return cb(err)
-        }
-        if (opts.dereference) {
-          resolvedDest = path.resolve(process.cwd(), resolvedDest)
-        }
-        if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
-          return cb(new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`))
-        }
-
-        // do not copy if src is a subdir of dest since unlinking
-        // dest in this case would result in removing src contents
-        // and therefore a broken symlink would be created.
-        if (destStat.isDirectory() && stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
-          return cb(new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`))
-        }
-        return copyLink(resolvedSrc, dest, cb)
-      })
+    const include = await runFilter(srcItem, destItem, opts)
+    // only copy the item if it matches the filter function
+    if (include) {
+      const { destStat } = await stat.checkPaths(srcItem, destItem, 'copy', opts)
+      // If the item is a copyable file, `getStatsAndPerformCopy` will copy it
+      // If the item is a directory, `getStatsAndPerformCopy` will call `onDir` recursively
+      await getStatsAndPerformCopy(destStat, srcItem, destItem, opts)
     }
   })
+
+  if (!destStat) {
+    await fs.chmod(dest, srcStat.mode)
+  }
 }
 
-function copyLink (resolvedSrc, dest, cb) {
-  fs.unlink(dest, err => {
-    if (err) return cb(err)
-    return fs.symlink(resolvedSrc, dest, cb)
-  })
+async function onLink (destStat, src, dest, opts) {
+  let resolvedSrc = await fs.readlink(src)
+  if (opts.dereference) {
+    resolvedSrc = path.resolve(process.cwd(), resolvedSrc)
+  }
+  if (!destStat) {
+    return fs.symlink(resolvedSrc, dest)
+  }
+
+  let resolvedDest = null
+  try {
+    resolvedDest = await fs.readlink(dest)
+  } catch (e) {
+    // dest exists and is a regular file or directory,
+    // Windows may throw UNKNOWN error. If dest already exists,
+    // fs throws error anyway, so no need to guard against it here.
+    if (e.code === 'EINVAL' || e.code === 'UNKNOWN') return fs.symlink(resolvedSrc, dest)
+    throw e
+  }
+  if (opts.dereference) {
+    resolvedDest = path.resolve(process.cwd(), resolvedDest)
+  }
+  // If both symlinks resolve to the same target, they are still distinct symlinks
+  // that can be copied/overwritten. Only check subdirectory constraints when
+  // the resolved paths are different.
+  if (resolvedSrc !== resolvedDest) {
+    if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
+      throw new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`)
+    }
+
+    // do not copy if src is a subdir of dest since unlinking
+    // dest in this case would result in removing src contents
+    // and therefore a broken symlink would be created.
+    if (stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
+      throw new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`)
+    }
+  }
+
+  // copy the link
+  await fs.unlink(dest)
+  return fs.symlink(resolvedSrc, dest)
 }
 
 module.exports = copy
@@ -28885,9 +27081,10 @@ module.exports = copy
 "use strict";
 
 
-const u = (__nccwpck_require__(9046).fromCallback)
+const u = (__nccwpck_require__(9046).fromPromise)
 module.exports = {
-  copy: u(__nccwpck_require__(38834))
+  copy: u(__nccwpck_require__(38834)),
+  copySync: __nccwpck_require__(89618)
 }
 
 
@@ -28899,37 +27096,30 @@ module.exports = {
 "use strict";
 
 
-const u = (__nccwpck_require__(9046).fromCallback)
-const fs = __nccwpck_require__(77758)
+const u = (__nccwpck_require__(9046).fromPromise)
+const fs = __nccwpck_require__(61176)
 const path = __nccwpck_require__(71017)
 const mkdir = __nccwpck_require__(98605)
 const remove = __nccwpck_require__(47357)
 
-const emptyDir = u(function emptyDir (dir, callback) {
-  callback = callback || function () {}
-  fs.readdir(dir, (err, items) => {
-    if (err) return mkdir.mkdirs(dir, callback)
+const emptyDir = u(async function emptyDir (dir) {
+  let items
+  try {
+    items = await fs.readdir(dir)
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err
+    return mkdir.mkdirs(dir)
+  }
 
-    items = items.map(item => path.join(dir, item))
-
-    deleteItem()
-
-    function deleteItem () {
-      const item = items.pop()
-      if (!item) return callback()
-      remove.remove(item, err => {
-        if (err) return callback(err)
-        deleteItem()
-      })
-    }
-  })
+  return Promise.all(items.map(item => remove.remove(path.join(dir, item))))
 })
 
 function emptyDirSync (dir) {
   let items
   try {
     items = fs.readdirSync(dir)
-  } catch {
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err
     return mkdir.mkdirsSync(dir)
   }
 
@@ -28955,51 +27145,48 @@ module.exports = {
 "use strict";
 
 
-const u = (__nccwpck_require__(9046).fromCallback)
+const u = (__nccwpck_require__(9046).fromPromise)
 const path = __nccwpck_require__(71017)
-const fs = __nccwpck_require__(77758)
+const fs = __nccwpck_require__(61176)
 const mkdir = __nccwpck_require__(98605)
 
-function createFile (file, callback) {
-  function makeFile () {
-    fs.writeFile(file, '', err => {
-      if (err) return callback(err)
-      callback()
-    })
+async function createFile (file) {
+  let stats
+  try {
+    stats = await fs.stat(file)
+  } catch { }
+  if (stats && stats.isFile()) return
+
+  const dir = path.dirname(file)
+
+  let dirStats = null
+  try {
+    dirStats = await fs.stat(dir)
+  } catch (err) {
+    // if the directory doesn't exist, make it
+    if (err.code === 'ENOENT') {
+      await mkdir.mkdirs(dir)
+      await fs.writeFile(file, '')
+      return
+    } else {
+      throw err
+    }
   }
 
-  fs.stat(file, (err, stats) => { // eslint-disable-line handle-callback-err
-    if (!err && stats.isFile()) return callback()
-    const dir = path.dirname(file)
-    fs.stat(dir, (err, stats) => {
-      if (err) {
-        // if the directory doesn't exist, make it
-        if (err.code === 'ENOENT') {
-          return mkdir.mkdirs(dir, err => {
-            if (err) return callback(err)
-            makeFile()
-          })
-        }
-        return callback(err)
-      }
-
-      if (stats.isDirectory()) makeFile()
-      else {
-        // parent is not a directory
-        // This is just to cause an internal ENOTDIR error to be thrown
-        fs.readdir(dir, err => {
-          if (err) return callback(err)
-        })
-      }
-    })
-  })
+  if (dirStats.isDirectory()) {
+    await fs.writeFile(file, '')
+  } else {
+    // parent is not a directory
+    // This is just to cause an internal ENOTDIR error to be thrown
+    await fs.readdir(dir)
+  }
 }
 
 function createFileSync (file) {
   let stats
   try {
     stats = fs.statSync(file)
-  } catch {}
+  } catch { }
   if (stats && stats.isFile()) return
 
   const dir = path.dirname(file)
@@ -29032,26 +27219,26 @@ module.exports = {
 "use strict";
 
 
-const file = __nccwpck_require__(2164)
-const link = __nccwpck_require__(53797)
-const symlink = __nccwpck_require__(72549)
+const { createFile, createFileSync } = __nccwpck_require__(2164)
+const { createLink, createLinkSync } = __nccwpck_require__(53797)
+const { createSymlink, createSymlinkSync } = __nccwpck_require__(72549)
 
 module.exports = {
   // file
-  createFile: file.createFile,
-  createFileSync: file.createFileSync,
-  ensureFile: file.createFile,
-  ensureFileSync: file.createFileSync,
+  createFile,
+  createFileSync,
+  ensureFile: createFile,
+  ensureFileSync: createFileSync,
   // link
-  createLink: link.createLink,
-  createLinkSync: link.createLinkSync,
-  ensureLink: link.createLink,
-  ensureLinkSync: link.createLinkSync,
+  createLink,
+  createLinkSync,
+  ensureLink: createLink,
+  ensureLinkSync: createLinkSync,
   // symlink
-  createSymlink: symlink.createSymlink,
-  createSymlinkSync: symlink.createSymlinkSync,
-  ensureSymlink: symlink.createSymlink,
-  ensureSymlinkSync: symlink.createSymlinkSync
+  createSymlink,
+  createSymlinkSync,
+  ensureSymlink: createSymlink,
+  ensureSymlinkSync: createSymlinkSync
 }
 
 
@@ -29063,48 +27250,51 @@ module.exports = {
 "use strict";
 
 
-const u = (__nccwpck_require__(9046).fromCallback)
+const u = (__nccwpck_require__(9046).fromPromise)
 const path = __nccwpck_require__(71017)
-const fs = __nccwpck_require__(77758)
+const fs = __nccwpck_require__(61176)
 const mkdir = __nccwpck_require__(98605)
-const pathExists = (__nccwpck_require__(43835).pathExists)
+const { pathExists } = __nccwpck_require__(43835)
+const { areIdentical } = __nccwpck_require__(73901)
 
-function createLink (srcpath, dstpath, callback) {
-  function makeLink (srcpath, dstpath) {
-    fs.link(srcpath, dstpath, err => {
-      if (err) return callback(err)
-      callback(null)
-    })
+async function createLink (srcpath, dstpath) {
+  let dstStat
+  try {
+    dstStat = await fs.lstat(dstpath, { bigint: true })
+  } catch {
+    // ignore error
   }
 
-  pathExists(dstpath, (err, destinationExists) => {
-    if (err) return callback(err)
-    if (destinationExists) return callback(null)
-    fs.lstat(srcpath, (err) => {
-      if (err) {
-        err.message = err.message.replace('lstat', 'ensureLink')
-        return callback(err)
-      }
+  let srcStat
+  try {
+    srcStat = await fs.lstat(srcpath, { bigint: true })
+  } catch (err) {
+    err.message = err.message.replace('lstat', 'ensureLink')
+    throw err
+  }
 
-      const dir = path.dirname(dstpath)
-      pathExists(dir, (err, dirExists) => {
-        if (err) return callback(err)
-        if (dirExists) return makeLink(srcpath, dstpath)
-        mkdir.mkdirs(dir, err => {
-          if (err) return callback(err)
-          makeLink(srcpath, dstpath)
-        })
-      })
-    })
-  })
+  if (dstStat && areIdentical(srcStat, dstStat)) return
+
+  const dir = path.dirname(dstpath)
+
+  const dirExists = await pathExists(dir)
+
+  if (!dirExists) {
+    await mkdir.mkdirs(dir)
+  }
+
+  await fs.link(srcpath, dstpath)
 }
 
 function createLinkSync (srcpath, dstpath) {
-  const destinationExists = fs.existsSync(dstpath)
-  if (destinationExists) return undefined
+  let dstStat
+  try {
+    dstStat = fs.lstatSync(dstpath, { bigint: true })
+  } catch {}
 
   try {
-    fs.lstatSync(srcpath)
+    const srcStat = fs.lstatSync(srcpath, { bigint: true })
+    if (dstStat && areIdentical(srcStat, dstStat)) return
   } catch (err) {
     err.message = err.message.replace('lstat', 'ensureLink')
     throw err
@@ -29133,8 +27323,10 @@ module.exports = {
 
 
 const path = __nccwpck_require__(71017)
-const fs = __nccwpck_require__(77758)
-const pathExists = (__nccwpck_require__(43835).pathExists)
+const fs = __nccwpck_require__(61176)
+const { pathExists } = __nccwpck_require__(43835)
+
+const u = (__nccwpck_require__(9046).fromPromise)
 
 /**
  * Function that returns two types of paths, one relative to symlink, and one
@@ -29158,75 +27350,75 @@ const pathExists = (__nccwpck_require__(43835).pathExists)
  * the ability to pass in `relative to current working direcotry` paths.
  */
 
-function symlinkPaths (srcpath, dstpath, callback) {
+async function symlinkPaths (srcpath, dstpath) {
   if (path.isAbsolute(srcpath)) {
-    return fs.lstat(srcpath, (err) => {
-      if (err) {
-        err.message = err.message.replace('lstat', 'ensureSymlink')
-        return callback(err)
-      }
-      return callback(null, {
-        toCwd: srcpath,
-        toDst: srcpath
-      })
-    })
-  } else {
-    const dstdir = path.dirname(dstpath)
-    const relativeToDst = path.join(dstdir, srcpath)
-    return pathExists(relativeToDst, (err, exists) => {
-      if (err) return callback(err)
-      if (exists) {
-        return callback(null, {
-          toCwd: relativeToDst,
-          toDst: srcpath
-        })
-      } else {
-        return fs.lstat(srcpath, (err) => {
-          if (err) {
-            err.message = err.message.replace('lstat', 'ensureSymlink')
-            return callback(err)
-          }
-          return callback(null, {
-            toCwd: srcpath,
-            toDst: path.relative(dstdir, srcpath)
-          })
-        })
-      }
-    })
+    try {
+      await fs.lstat(srcpath)
+    } catch (err) {
+      err.message = err.message.replace('lstat', 'ensureSymlink')
+      throw err
+    }
+
+    return {
+      toCwd: srcpath,
+      toDst: srcpath
+    }
+  }
+
+  const dstdir = path.dirname(dstpath)
+  const relativeToDst = path.join(dstdir, srcpath)
+
+  const exists = await pathExists(relativeToDst)
+  if (exists) {
+    return {
+      toCwd: relativeToDst,
+      toDst: srcpath
+    }
+  }
+
+  try {
+    await fs.lstat(srcpath)
+  } catch (err) {
+    err.message = err.message.replace('lstat', 'ensureSymlink')
+    throw err
+  }
+
+  return {
+    toCwd: srcpath,
+    toDst: path.relative(dstdir, srcpath)
   }
 }
 
 function symlinkPathsSync (srcpath, dstpath) {
-  let exists
   if (path.isAbsolute(srcpath)) {
-    exists = fs.existsSync(srcpath)
+    const exists = fs.existsSync(srcpath)
     if (!exists) throw new Error('absolute srcpath does not exist')
     return {
       toCwd: srcpath,
       toDst: srcpath
     }
-  } else {
-    const dstdir = path.dirname(dstpath)
-    const relativeToDst = path.join(dstdir, srcpath)
-    exists = fs.existsSync(relativeToDst)
-    if (exists) {
-      return {
-        toCwd: relativeToDst,
-        toDst: srcpath
-      }
-    } else {
-      exists = fs.existsSync(srcpath)
-      if (!exists) throw new Error('relative srcpath does not exist')
-      return {
-        toCwd: srcpath,
-        toDst: path.relative(dstdir, srcpath)
-      }
+  }
+
+  const dstdir = path.dirname(dstpath)
+  const relativeToDst = path.join(dstdir, srcpath)
+  const exists = fs.existsSync(relativeToDst)
+  if (exists) {
+    return {
+      toCwd: relativeToDst,
+      toDst: srcpath
     }
+  }
+
+  const srcExists = fs.existsSync(srcpath)
+  if (!srcExists) throw new Error('relative srcpath does not exist')
+  return {
+    toCwd: srcpath,
+    toDst: path.relative(dstdir, srcpath)
   }
 }
 
 module.exports = {
-  symlinkPaths,
+  symlinkPaths: u(symlinkPaths),
   symlinkPathsSync
 }
 
@@ -29239,23 +27431,26 @@ module.exports = {
 "use strict";
 
 
-const fs = __nccwpck_require__(77758)
+const fs = __nccwpck_require__(61176)
+const u = (__nccwpck_require__(9046).fromPromise)
 
-function symlinkType (srcpath, type, callback) {
-  callback = (typeof type === 'function') ? type : callback
-  type = (typeof type === 'function') ? false : type
-  if (type) return callback(null, type)
-  fs.lstat(srcpath, (err, stats) => {
-    if (err) return callback(null, 'file')
-    type = (stats && stats.isDirectory()) ? 'dir' : 'file'
-    callback(null, type)
-  })
+async function symlinkType (srcpath, type) {
+  if (type) return type
+
+  let stats
+  try {
+    stats = await fs.lstat(srcpath)
+  } catch {
+    return 'file'
+  }
+
+  return (stats && stats.isDirectory()) ? 'dir' : 'file'
 }
 
 function symlinkTypeSync (srcpath, type) {
-  let stats
-
   if (type) return type
+
+  let stats
   try {
     stats = fs.lstatSync(srcpath)
   } catch {
@@ -29265,7 +27460,7 @@ function symlinkTypeSync (srcpath, type) {
 }
 
 module.exports = {
-  symlinkType,
+  symlinkType: u(symlinkType),
   symlinkTypeSync
 }
 
@@ -29278,52 +27473,97 @@ module.exports = {
 "use strict";
 
 
-const u = (__nccwpck_require__(9046).fromCallback)
+const u = (__nccwpck_require__(9046).fromPromise)
 const path = __nccwpck_require__(71017)
-const fs = __nccwpck_require__(77758)
-const _mkdirs = __nccwpck_require__(98605)
-const mkdirs = _mkdirs.mkdirs
-const mkdirsSync = _mkdirs.mkdirsSync
+const fs = __nccwpck_require__(61176)
 
-const _symlinkPaths = __nccwpck_require__(53727)
-const symlinkPaths = _symlinkPaths.symlinkPaths
-const symlinkPathsSync = _symlinkPaths.symlinkPathsSync
+const { mkdirs, mkdirsSync } = __nccwpck_require__(98605)
 
-const _symlinkType = __nccwpck_require__(18254)
-const symlinkType = _symlinkType.symlinkType
-const symlinkTypeSync = _symlinkType.symlinkTypeSync
+const { symlinkPaths, symlinkPathsSync } = __nccwpck_require__(53727)
+const { symlinkType, symlinkTypeSync } = __nccwpck_require__(18254)
 
-const pathExists = (__nccwpck_require__(43835).pathExists)
+const { pathExists } = __nccwpck_require__(43835)
 
-function createSymlink (srcpath, dstpath, type, callback) {
-  callback = (typeof type === 'function') ? type : callback
-  type = (typeof type === 'function') ? false : type
+const { areIdentical } = __nccwpck_require__(73901)
 
-  pathExists(dstpath, (err, destinationExists) => {
-    if (err) return callback(err)
-    if (destinationExists) return callback(null)
-    symlinkPaths(srcpath, dstpath, (err, relative) => {
-      if (err) return callback(err)
-      srcpath = relative.toDst
-      symlinkType(relative.toCwd, type, (err, type) => {
-        if (err) return callback(err)
-        const dir = path.dirname(dstpath)
-        pathExists(dir, (err, dirExists) => {
-          if (err) return callback(err)
-          if (dirExists) return fs.symlink(srcpath, dstpath, type, callback)
-          mkdirs(dir, err => {
-            if (err) return callback(err)
-            fs.symlink(srcpath, dstpath, type, callback)
-          })
-        })
-      })
-    })
-  })
+async function createSymlink (srcpath, dstpath, type) {
+  let stats
+  try {
+    stats = await fs.lstat(dstpath)
+  } catch { }
+
+  if (stats && stats.isSymbolicLink()) {
+    // When srcpath is relative, resolve it relative to dstpath's directory
+    // (standard symlink behavior) or fall back to cwd if that doesn't exist
+    let srcStat
+    if (path.isAbsolute(srcpath)) {
+      srcStat = await fs.stat(srcpath, { bigint: true })
+    } else {
+      const dstdir = path.dirname(dstpath)
+      const relativeToDst = path.join(dstdir, srcpath)
+      try {
+        srcStat = await fs.stat(relativeToDst, { bigint: true })
+      } catch {
+        srcStat = await fs.stat(srcpath, { bigint: true })
+      }
+    }
+
+    // Following the existing symlink fails with ENOENT if it's broken; in that
+    // case fall through so fs.symlink reports EEXIST, rather than leaking the
+    // stat ENOENT. Any other error is unexpected, so rethrow it.
+    let dstStat
+    try {
+      dstStat = await fs.stat(dstpath, { bigint: true })
+    } catch (err) {
+      if (err.code !== 'ENOENT') throw err
+    }
+    if (dstStat && areIdentical(srcStat, dstStat)) return
+  }
+
+  const relative = await symlinkPaths(srcpath, dstpath)
+  srcpath = relative.toDst
+  const toType = await symlinkType(relative.toCwd, type)
+  const dir = path.dirname(dstpath)
+
+  if (!(await pathExists(dir))) {
+    await mkdirs(dir)
+  }
+
+  return fs.symlink(srcpath, dstpath, toType)
 }
 
 function createSymlinkSync (srcpath, dstpath, type) {
-  const destinationExists = fs.existsSync(dstpath)
-  if (destinationExists) return undefined
+  let stats
+  try {
+    stats = fs.lstatSync(dstpath)
+  } catch { }
+  if (stats && stats.isSymbolicLink()) {
+    // When srcpath is relative, resolve it relative to dstpath's directory
+    // (standard symlink behavior) or fall back to cwd if that doesn't exist
+    let srcStat
+    if (path.isAbsolute(srcpath)) {
+      srcStat = fs.statSync(srcpath, { bigint: true })
+    } else {
+      const dstdir = path.dirname(dstpath)
+      const relativeToDst = path.join(dstdir, srcpath)
+      try {
+        srcStat = fs.statSync(relativeToDst, { bigint: true })
+      } catch {
+        srcStat = fs.statSync(srcpath, { bigint: true })
+      }
+    }
+
+    // Following the existing symlink fails with ENOENT if it's broken; in that
+    // case fall through so fs.symlinkSync reports EEXIST, rather than leaking the
+    // stat ENOENT. Any other error is unexpected, so rethrow it.
+    let dstStat
+    try {
+      dstStat = fs.statSync(dstpath, { bigint: true })
+    } catch (err) {
+      if (err.code !== 'ENOENT') throw err
+    }
+    if (dstStat && areIdentical(srcStat, dstStat)) return
+  }
 
   const relative = symlinkPathsSync(srcpath, dstpath)
   srcpath = relative.toDst
@@ -29360,6 +27600,7 @@ const api = [
   'chown',
   'close',
   'copyFile',
+  'cp',
   'fchmod',
   'fchown',
   'fdatasync',
@@ -29367,8 +27608,10 @@ const api = [
   'fsync',
   'ftruncate',
   'futimes',
+  'glob',
   'lchmod',
   'lchown',
+  'lutimes',
   'link',
   'lstat',
   'mkdir',
@@ -29383,6 +27626,7 @@ const api = [
   'rm',
   'rmdir',
   'stat',
+  'statfs',
   'symlink',
   'truncate',
   'unlink',
@@ -29390,21 +27634,15 @@ const api = [
   'writeFile'
 ].filter(key => {
   // Some commands are not available on some systems. Ex:
-  // fs.opendir was added in Node.js v12.12.0
-  // fs.rm was added in Node.js v14.14.0
+  // fs.cp was added in Node.js v16.7.0
+  // fs.statfs was added in Node v19.6.0, v18.15.0
+  // fs.glob was added in Node.js v22.0.0
   // fs.lchown is not available on at least some Linux
   return typeof fs[key] === 'function'
 })
 
-// Export all keys:
-Object.keys(fs).forEach(key => {
-  if (key === 'promises') {
-    // fs.promises is a getter property that triggers ExperimentalWarning
-    // Don't re-export it here, the getter is defined in "lib/index.js"
-    return
-  }
-  exports[key] = fs[key]
-})
+// Export cloned fs:
+Object.assign(exports, fs)
 
 // Universalify async methods:
 api.forEach(method => {
@@ -29422,7 +27660,7 @@ exports.exists = function (filename, callback) {
   })
 }
 
-// fs.read(), fs.write(), & fs.writev() need special treatment due to multiple callback args
+// fs.read(), fs.write(), fs.readv(), & fs.writev() need special treatment due to multiple callback args
 
 exports.read = function (fd, buffer, offset, length, position, callback) {
   if (typeof callback === 'function') {
@@ -29454,28 +27692,46 @@ exports.write = function (fd, buffer, ...args) {
   })
 }
 
-// fs.writev only available in Node v12.9.0+
-if (typeof fs.writev === 'function') {
-  // Function signature is
-  // s.writev(fd, buffers[, position], callback)
-  // We need to handle the optional arg, so we use ...args
-  exports.writev = function (fd, buffers, ...args) {
-    if (typeof args[args.length - 1] === 'function') {
-      return fs.writev(fd, buffers, ...args)
-    }
-
-    return new Promise((resolve, reject) => {
-      fs.writev(fd, buffers, ...args, (err, bytesWritten, buffers) => {
-        if (err) return reject(err)
-        resolve({ bytesWritten, buffers })
-      })
-    })
+// Function signature is
+// s.readv(fd, buffers[, position], callback)
+// We need to handle the optional arg, so we use ...args
+exports.readv = function (fd, buffers, ...args) {
+  if (typeof args[args.length - 1] === 'function') {
+    return fs.readv(fd, buffers, ...args)
   }
+
+  return new Promise((resolve, reject) => {
+    fs.readv(fd, buffers, ...args, (err, bytesRead, buffers) => {
+      if (err) return reject(err)
+      resolve({ bytesRead, buffers })
+    })
+  })
 }
 
-// fs.realpath.native only available in Node v9.2+
+// Function signature is
+// s.writev(fd, buffers[, position], callback)
+// We need to handle the optional arg, so we use ...args
+exports.writev = function (fd, buffers, ...args) {
+  if (typeof args[args.length - 1] === 'function') {
+    return fs.writev(fd, buffers, ...args)
+  }
+
+  return new Promise((resolve, reject) => {
+    fs.writev(fd, buffers, ...args, (err, bytesWritten, buffers) => {
+      if (err) return reject(err)
+      resolve({ bytesWritten, buffers })
+    })
+  })
+}
+
+// fs.realpath.native sometimes not available if fs is monkey-patched
 if (typeof fs.realpath.native === 'function') {
   exports.realpath.native = u(fs.realpath.native)
+} else {
+  process.emitWarning(
+    'fs.realpath.native is not a function. Is fs being monkey-patched?',
+    'Warning', 'fs-extra-WARN0003'
+  )
 }
 
 
@@ -29491,26 +27747,15 @@ module.exports = {
   // Export promiseified graceful-fs:
   ...__nccwpck_require__(61176),
   // Export extra methods:
-  ...__nccwpck_require__(11135),
   ...__nccwpck_require__(61335),
   ...__nccwpck_require__(96970),
   ...__nccwpck_require__(40055),
   ...__nccwpck_require__(40213),
   ...__nccwpck_require__(98605),
-  ...__nccwpck_require__(69665),
   ...__nccwpck_require__(41497),
-  ...__nccwpck_require__(16570),
+  ...__nccwpck_require__(91832),
   ...__nccwpck_require__(43835),
   ...__nccwpck_require__(47357)
-}
-
-// Export fs.promises as a getter property so that we don't trigger
-// ExperimentalWarning before fs.promises is actually accessed.
-const fs = __nccwpck_require__(57147)
-if (Object.getOwnPropertyDescriptor(fs, 'promises')) {
-  Object.defineProperty(module.exports, "promises", ({
-    get () { return fs.promises }
-  }))
 }
 
 
@@ -29526,7 +27771,7 @@ const u = (__nccwpck_require__(9046).fromPromise)
 const jsonFile = __nccwpck_require__(18970)
 
 jsonFile.outputJson = u(__nccwpck_require__(60531))
-jsonFile.outputJsonSync = __nccwpck_require__(34890)
+jsonFile.outputJsonSync = __nccwpck_require__(19421)
 // aliases
 jsonFile.outputJSON = jsonFile.outputJson
 jsonFile.outputJSONSync = jsonFile.outputJsonSync
@@ -29559,14 +27804,14 @@ module.exports = {
 
 /***/ }),
 
-/***/ 34890:
+/***/ 19421:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
 const { stringify } = __nccwpck_require__(35902)
-const { outputFileSync } = __nccwpck_require__(16570)
+const { outputFileSync } = __nccwpck_require__(91832)
 
 function outputJsonSync (file, data, options) {
   const str = stringify(data, options)
@@ -29586,7 +27831,7 @@ module.exports = outputJsonSync
 
 
 const { stringify } = __nccwpck_require__(35902)
-const { outputFile } = __nccwpck_require__(16570)
+const { outputFile } = __nccwpck_require__(91832)
 
 async function outputJson (file, data, options = {}) {
   const str = stringify(data, options)
@@ -29625,21 +27870,52 @@ module.exports = {
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
+
+const fs = __nccwpck_require__(61176)
+const { checkPath } = __nccwpck_require__(59907)
+
+const getMode = options => {
+  const defaults = { mode: 0o777 }
+  if (typeof options === 'number') return options
+  return ({ ...defaults, ...options }).mode
+}
+
+module.exports.makeDir = async (dir, options) => {
+  checkPath(dir)
+
+  return fs.mkdir(dir, {
+    mode: getMode(options),
+    recursive: true
+  })
+}
+
+module.exports.makeDirSync = (dir, options) => {
+  checkPath(dir)
+
+  return fs.mkdirSync(dir, {
+    mode: getMode(options),
+    recursive: true
+  })
+}
+
+
+/***/ }),
+
+/***/ 59907:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
 // Adapted from https://github.com/sindresorhus/make-dir
 // Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-const fs = __nccwpck_require__(61176)
 const path = __nccwpck_require__(71017)
-const atLeastNode = __nccwpck_require__(25995)
-
-const useNativeRecursiveOption = atLeastNode('10.12.0')
 
 // https://github.com/nodejs/node/issues/8987
 // https://github.com/libuv/libuv/pull/1088
-const checkPath = pth => {
+module.exports.checkPath = function checkPath (pth) {
   if (process.platform === 'win32') {
     const pathHasInvalidWinCharacters = /[<>:"|?*]/.test(pth.replace(path.parse(pth).root, ''))
 
@@ -29651,139 +27927,25 @@ const checkPath = pth => {
   }
 }
 
-const processOptions = options => {
-  const defaults = { mode: 0o777 }
-  if (typeof options === 'number') options = { mode: options }
-  return { ...defaults, ...options }
-}
-
-const permissionError = pth => {
-  // This replicates the exception of `fs.mkdir` with native the
-  // `recusive` option when run on an invalid drive under Windows.
-  const error = new Error(`operation not permitted, mkdir '${pth}'`)
-  error.code = 'EPERM'
-  error.errno = -4048
-  error.path = pth
-  error.syscall = 'mkdir'
-  return error
-}
-
-module.exports.makeDir = async (input, options) => {
-  checkPath(input)
-  options = processOptions(options)
-
-  if (useNativeRecursiveOption) {
-    const pth = path.resolve(input)
-
-    return fs.mkdir(pth, {
-      mode: options.mode,
-      recursive: true
-    })
-  }
-
-  const make = async pth => {
-    try {
-      await fs.mkdir(pth, options.mode)
-    } catch (error) {
-      if (error.code === 'EPERM') {
-        throw error
-      }
-
-      if (error.code === 'ENOENT') {
-        if (path.dirname(pth) === pth) {
-          throw permissionError(pth)
-        }
-
-        if (error.message.includes('null bytes')) {
-          throw error
-        }
-
-        await make(path.dirname(pth))
-        return make(pth)
-      }
-
-      try {
-        const stats = await fs.stat(pth)
-        if (!stats.isDirectory()) {
-          // This error is never exposed to the user
-          // it is caught below, and the original error is thrown
-          throw new Error('The path is not a directory')
-        }
-      } catch {
-        throw error
-      }
-    }
-  }
-
-  return make(path.resolve(input))
-}
-
-module.exports.makeDirSync = (input, options) => {
-  checkPath(input)
-  options = processOptions(options)
-
-  if (useNativeRecursiveOption) {
-    const pth = path.resolve(input)
-
-    return fs.mkdirSync(pth, {
-      mode: options.mode,
-      recursive: true
-    })
-  }
-
-  const make = pth => {
-    try {
-      fs.mkdirSync(pth, options.mode)
-    } catch (error) {
-      if (error.code === 'EPERM') {
-        throw error
-      }
-
-      if (error.code === 'ENOENT') {
-        if (path.dirname(pth) === pth) {
-          throw permissionError(pth)
-        }
-
-        if (error.message.includes('null bytes')) {
-          throw error
-        }
-
-        make(path.dirname(pth))
-        return make(pth)
-      }
-
-      try {
-        if (!fs.statSync(pth).isDirectory()) {
-          // This error is never exposed to the user
-          // it is caught below, and the original error is thrown
-          throw new Error('The path is not a directory')
-        }
-      } catch {
-        throw error
-      }
-    }
-  }
-
-  return make(path.resolve(input))
-}
-
 
 /***/ }),
 
-/***/ 69665:
+/***/ 41497:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
+const u = (__nccwpck_require__(9046).fromPromise)
 module.exports = {
-  moveSync: __nccwpck_require__(96445)
+  move: u(__nccwpck_require__(72231)),
+  moveSync: __nccwpck_require__(42047)
 }
 
 
 /***/ }),
 
-/***/ 96445:
+/***/ 42047:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -29791,7 +27953,7 @@ module.exports = {
 
 const fs = __nccwpck_require__(77758)
 const path = __nccwpck_require__(71017)
-const copySync = (__nccwpck_require__(11135).copySync)
+const copySync = (__nccwpck_require__(61335).copySync)
 const removeSync = (__nccwpck_require__(47357).removeSync)
 const mkdirpSync = (__nccwpck_require__(98605).mkdirpSync)
 const stat = __nccwpck_require__(73901)
@@ -29800,13 +27962,20 @@ function moveSync (src, dest, opts) {
   opts = opts || {}
   const overwrite = opts.overwrite || opts.clobber || false
 
-  const { srcStat } = stat.checkPathsSync(src, dest, 'move')
+  const { srcStat, isChangingCase = false } = stat.checkPathsSync(src, dest, 'move', opts)
   stat.checkParentPathsSync(src, srcStat, dest, 'move')
-  mkdirpSync(path.dirname(dest))
-  return doRename(src, dest, overwrite)
+  if (!isParentRoot(dest)) mkdirpSync(path.dirname(dest))
+  return doRename(src, dest, overwrite, isChangingCase)
 }
 
-function doRename (src, dest, overwrite) {
+function isParentRoot (dest) {
+  const parent = path.dirname(dest)
+  const parsedPath = path.parse(parent)
+  return parsedPath.root === parent
+}
+
+function doRename (src, dest, overwrite, isChangingCase) {
+  if (isChangingCase) return rename(src, dest, overwrite)
   if (overwrite) {
     removeSync(dest)
     return rename(src, dest, overwrite)
@@ -29827,7 +27996,8 @@ function rename (src, dest, overwrite) {
 function moveAcrossDevice (src, dest, overwrite) {
   const opts = {
     overwrite,
-    errorOnExist: true
+    errorOnExist: true,
+    preserveTimestamps: true
   }
   copySync(src, dest, opts)
   return removeSync(src)
@@ -29838,86 +28008,66 @@ module.exports = moveSync
 
 /***/ }),
 
-/***/ 41497:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-const u = (__nccwpck_require__(9046).fromCallback)
-module.exports = {
-  move: u(__nccwpck_require__(72231))
-}
-
-
-/***/ }),
-
 /***/ 72231:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-const fs = __nccwpck_require__(77758)
+const fs = __nccwpck_require__(61176)
 const path = __nccwpck_require__(71017)
-const copy = (__nccwpck_require__(61335).copy)
-const remove = (__nccwpck_require__(47357).remove)
-const mkdirp = (__nccwpck_require__(98605).mkdirp)
-const pathExists = (__nccwpck_require__(43835).pathExists)
+const { copy } = __nccwpck_require__(61335)
+const { remove } = __nccwpck_require__(47357)
+const { mkdirp } = __nccwpck_require__(98605)
+const { pathExists } = __nccwpck_require__(43835)
 const stat = __nccwpck_require__(73901)
 
-function move (src, dest, opts, cb) {
-  if (typeof opts === 'function') {
-    cb = opts
-    opts = {}
-  }
-
+async function move (src, dest, opts = {}) {
   const overwrite = opts.overwrite || opts.clobber || false
 
-  stat.checkPaths(src, dest, 'move', (err, stats) => {
-    if (err) return cb(err)
-    const { srcStat } = stats
-    stat.checkParentPaths(src, srcStat, dest, 'move', err => {
-      if (err) return cb(err)
-      mkdirp(path.dirname(dest), err => {
-        if (err) return cb(err)
-        return doRename(src, dest, overwrite, cb)
-      })
-    })
-  })
-}
+  const { srcStat, isChangingCase = false } = await stat.checkPaths(src, dest, 'move', opts)
 
-function doRename (src, dest, overwrite, cb) {
-  if (overwrite) {
-    return remove(dest, err => {
-      if (err) return cb(err)
-      return rename(src, dest, overwrite, cb)
-    })
+  await stat.checkParentPaths(src, srcStat, dest, 'move')
+
+  // If the parent of dest is not root, make sure it exists before proceeding
+  const destParent = path.dirname(dest)
+  const parsedParentPath = path.parse(destParent)
+  if (parsedParentPath.root !== destParent) {
+    await mkdirp(destParent)
   }
-  pathExists(dest, (err, destExists) => {
-    if (err) return cb(err)
-    if (destExists) return cb(new Error('dest already exists.'))
-    return rename(src, dest, overwrite, cb)
-  })
+
+  return doRename(src, dest, overwrite, isChangingCase)
 }
 
-function rename (src, dest, overwrite, cb) {
-  fs.rename(src, dest, err => {
-    if (!err) return cb()
-    if (err.code !== 'EXDEV') return cb(err)
-    return moveAcrossDevice(src, dest, overwrite, cb)
-  })
+async function doRename (src, dest, overwrite, isChangingCase) {
+  if (!isChangingCase) {
+    if (overwrite) {
+      await remove(dest)
+    } else if (await pathExists(dest)) {
+      throw new Error('dest already exists.')
+    }
+  }
+
+  try {
+    // Try w/ rename first, and try copy + remove if EXDEV
+    await fs.rename(src, dest)
+  } catch (err) {
+    if (err.code !== 'EXDEV') {
+      throw err
+    }
+    await moveAcrossDevice(src, dest, overwrite)
+  }
 }
 
-function moveAcrossDevice (src, dest, overwrite, cb) {
+async function moveAcrossDevice (src, dest, overwrite) {
   const opts = {
     overwrite,
-    errorOnExist: true
+    errorOnExist: true,
+    preserveTimestamps: true
   }
-  copy(src, dest, opts, err => {
-    if (err) return cb(err)
-    return remove(src, cb)
-  })
+
+  await copy(src, dest, opts)
+  return remove(src)
 }
 
 module.exports = move
@@ -29925,43 +28075,34 @@ module.exports = move
 
 /***/ }),
 
-/***/ 16570:
+/***/ 91832:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-const u = (__nccwpck_require__(9046).fromCallback)
-const fs = __nccwpck_require__(77758)
+const u = (__nccwpck_require__(9046).fromPromise)
+const fs = __nccwpck_require__(61176)
 const path = __nccwpck_require__(71017)
 const mkdir = __nccwpck_require__(98605)
 const pathExists = (__nccwpck_require__(43835).pathExists)
 
-function outputFile (file, data, encoding, callback) {
-  if (typeof encoding === 'function') {
-    callback = encoding
-    encoding = 'utf8'
+async function outputFile (file, data, encoding = 'utf-8') {
+  const dir = path.dirname(file)
+
+  if (!(await pathExists(dir))) {
+    await mkdir.mkdirs(dir)
   }
 
-  const dir = path.dirname(file)
-  pathExists(dir, (err, itDoes) => {
-    if (err) return callback(err)
-    if (itDoes) return fs.writeFile(file, data, encoding, callback)
-
-    mkdir.mkdirs(dir, err => {
-      if (err) return callback(err)
-
-      fs.writeFile(file, data, encoding, callback)
-    })
-  })
+  return fs.writeFile(file, data, encoding)
 }
 
 function outputFileSync (file, ...args) {
   const dir = path.dirname(file)
-  if (fs.existsSync(dir)) {
-    return fs.writeFileSync(file, ...args)
+  if (!fs.existsSync(dir)) {
+    mkdir.mkdirsSync(dir)
   }
-  mkdir.mkdirsSync(dir)
+
   fs.writeFileSync(file, ...args)
 }
 
@@ -29999,323 +28140,58 @@ module.exports = {
 "use strict";
 
 
+const fs = __nccwpck_require__(77758)
 const u = (__nccwpck_require__(9046).fromCallback)
-const rimraf = __nccwpck_require__(38761)
+
+function remove (path, callback) {
+  fs.rm(path, { recursive: true, force: true }, callback)
+}
+
+function removeSync (path) {
+  fs.rmSync(path, { recursive: true, force: true })
+}
 
 module.exports = {
-  remove: u(rimraf),
-  removeSync: rimraf.sync
+  remove: u(remove),
+  removeSync
 }
 
 
 /***/ }),
 
-/***/ 38761:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ 21860:
+/***/ ((module) => {
 
 "use strict";
 
 
-const fs = __nccwpck_require__(77758)
-const path = __nccwpck_require__(71017)
-const assert = __nccwpck_require__(39491)
-
-const isWindows = (process.platform === 'win32')
-
-function defaults (options) {
-  const methods = [
-    'unlink',
-    'chmod',
-    'stat',
-    'lstat',
-    'rmdir',
-    'readdir'
-  ]
-  methods.forEach(m => {
-    options[m] = options[m] || fs[m]
-    m = m + 'Sync'
-    options[m] = options[m] || fs[m]
-  })
-
-  options.maxBusyTries = options.maxBusyTries || 3
-}
-
-function rimraf (p, options, cb) {
-  let busyTries = 0
-
-  if (typeof options === 'function') {
-    cb = options
-    options = {}
+// https://github.com/jprichardson/node-fs-extra/issues/1056
+// Performing parallel operations on each item of an async iterator is
+// surprisingly hard; you need to have handlers in place to avoid getting an
+// UnhandledPromiseRejectionWarning.
+// NOTE: This function does not presently handle return values, only errors
+async function asyncIteratorConcurrentProcess (iterator, fn) {
+  const promises = []
+  for await (const item of iterator) {
+    promises.push(
+      fn(item).then(
+        () => null,
+        (err) => err ?? new Error('unknown error')
+      )
+    )
   }
-
-  assert(p, 'rimraf: missing path')
-  assert.strictEqual(typeof p, 'string', 'rimraf: path should be a string')
-  assert.strictEqual(typeof cb, 'function', 'rimraf: callback function required')
-  assert(options, 'rimraf: invalid options argument provided')
-  assert.strictEqual(typeof options, 'object', 'rimraf: options should be object')
-
-  defaults(options)
-
-  rimraf_(p, options, function CB (er) {
-    if (er) {
-      if ((er.code === 'EBUSY' || er.code === 'ENOTEMPTY' || er.code === 'EPERM') &&
-          busyTries < options.maxBusyTries) {
-        busyTries++
-        const time = busyTries * 100
-        // try again, with the same exact callback as this one.
-        return setTimeout(() => rimraf_(p, options, CB), time)
-      }
-
-      // already gone
-      if (er.code === 'ENOENT') er = null
-    }
-
-    cb(er)
-  })
-}
-
-// Two possible strategies.
-// 1. Assume it's a file.  unlink it, then do the dir stuff on EPERM or EISDIR
-// 2. Assume it's a directory.  readdir, then do the file stuff on ENOTDIR
-//
-// Both result in an extra syscall when you guess wrong.  However, there
-// are likely far more normal files in the world than directories.  This
-// is based on the assumption that a the average number of files per
-// directory is >= 1.
-//
-// If anyone ever complains about this, then I guess the strategy could
-// be made configurable somehow.  But until then, YAGNI.
-function rimraf_ (p, options, cb) {
-  assert(p)
-  assert(options)
-  assert(typeof cb === 'function')
-
-  // sunos lets the root user unlink directories, which is... weird.
-  // so we have to lstat here and make sure it's not a dir.
-  options.lstat(p, (er, st) => {
-    if (er && er.code === 'ENOENT') {
-      return cb(null)
-    }
-
-    // Windows can EPERM on stat.  Life is suffering.
-    if (er && er.code === 'EPERM' && isWindows) {
-      return fixWinEPERM(p, options, er, cb)
-    }
-
-    if (st && st.isDirectory()) {
-      return rmdir(p, options, er, cb)
-    }
-
-    options.unlink(p, er => {
-      if (er) {
-        if (er.code === 'ENOENT') {
-          return cb(null)
-        }
-        if (er.code === 'EPERM') {
-          return (isWindows)
-            ? fixWinEPERM(p, options, er, cb)
-            : rmdir(p, options, er, cb)
-        }
-        if (er.code === 'EISDIR') {
-          return rmdir(p, options, er, cb)
-        }
-      }
-      return cb(er)
-    })
-  })
-}
-
-function fixWinEPERM (p, options, er, cb) {
-  assert(p)
-  assert(options)
-  assert(typeof cb === 'function')
-
-  options.chmod(p, 0o666, er2 => {
-    if (er2) {
-      cb(er2.code === 'ENOENT' ? null : er)
-    } else {
-      options.stat(p, (er3, stats) => {
-        if (er3) {
-          cb(er3.code === 'ENOENT' ? null : er)
-        } else if (stats.isDirectory()) {
-          rmdir(p, options, er, cb)
-        } else {
-          options.unlink(p, cb)
-        }
+  await Promise.all(
+    promises.map((promise) =>
+      promise.then((possibleErr) => {
+        if (possibleErr !== null) throw possibleErr
       })
-    }
-  })
+    )
+  )
 }
 
-function fixWinEPERMSync (p, options, er) {
-  let stats
-
-  assert(p)
-  assert(options)
-
-  try {
-    options.chmodSync(p, 0o666)
-  } catch (er2) {
-    if (er2.code === 'ENOENT') {
-      return
-    } else {
-      throw er
-    }
-  }
-
-  try {
-    stats = options.statSync(p)
-  } catch (er3) {
-    if (er3.code === 'ENOENT') {
-      return
-    } else {
-      throw er
-    }
-  }
-
-  if (stats.isDirectory()) {
-    rmdirSync(p, options, er)
-  } else {
-    options.unlinkSync(p)
-  }
+module.exports = {
+  asyncIteratorConcurrentProcess
 }
-
-function rmdir (p, options, originalEr, cb) {
-  assert(p)
-  assert(options)
-  assert(typeof cb === 'function')
-
-  // try to rmdir first, and only readdir on ENOTEMPTY or EEXIST (SunOS)
-  // if we guessed wrong, and it's not a directory, then
-  // raise the original error.
-  options.rmdir(p, er => {
-    if (er && (er.code === 'ENOTEMPTY' || er.code === 'EEXIST' || er.code === 'EPERM')) {
-      rmkids(p, options, cb)
-    } else if (er && er.code === 'ENOTDIR') {
-      cb(originalEr)
-    } else {
-      cb(er)
-    }
-  })
-}
-
-function rmkids (p, options, cb) {
-  assert(p)
-  assert(options)
-  assert(typeof cb === 'function')
-
-  options.readdir(p, (er, files) => {
-    if (er) return cb(er)
-
-    let n = files.length
-    let errState
-
-    if (n === 0) return options.rmdir(p, cb)
-
-    files.forEach(f => {
-      rimraf(path.join(p, f), options, er => {
-        if (errState) {
-          return
-        }
-        if (er) return cb(errState = er)
-        if (--n === 0) {
-          options.rmdir(p, cb)
-        }
-      })
-    })
-  })
-}
-
-// this looks simpler, and is strictly *faster*, but will
-// tie up the JavaScript thread and fail on excessively
-// deep directory trees.
-function rimrafSync (p, options) {
-  let st
-
-  options = options || {}
-  defaults(options)
-
-  assert(p, 'rimraf: missing path')
-  assert.strictEqual(typeof p, 'string', 'rimraf: path should be a string')
-  assert(options, 'rimraf: missing options')
-  assert.strictEqual(typeof options, 'object', 'rimraf: options should be object')
-
-  try {
-    st = options.lstatSync(p)
-  } catch (er) {
-    if (er.code === 'ENOENT') {
-      return
-    }
-
-    // Windows can EPERM on stat.  Life is suffering.
-    if (er.code === 'EPERM' && isWindows) {
-      fixWinEPERMSync(p, options, er)
-    }
-  }
-
-  try {
-    // sunos lets the root user unlink directories, which is... weird.
-    if (st && st.isDirectory()) {
-      rmdirSync(p, options, null)
-    } else {
-      options.unlinkSync(p)
-    }
-  } catch (er) {
-    if (er.code === 'ENOENT') {
-      return
-    } else if (er.code === 'EPERM') {
-      return isWindows ? fixWinEPERMSync(p, options, er) : rmdirSync(p, options, er)
-    } else if (er.code !== 'EISDIR') {
-      throw er
-    }
-    rmdirSync(p, options, er)
-  }
-}
-
-function rmdirSync (p, options, originalEr) {
-  assert(p)
-  assert(options)
-
-  try {
-    options.rmdirSync(p)
-  } catch (er) {
-    if (er.code === 'ENOTDIR') {
-      throw originalEr
-    } else if (er.code === 'ENOTEMPTY' || er.code === 'EEXIST' || er.code === 'EPERM') {
-      rmkidsSync(p, options)
-    } else if (er.code !== 'ENOENT') {
-      throw er
-    }
-  }
-}
-
-function rmkidsSync (p, options) {
-  assert(p)
-  assert(options)
-  options.readdirSync(p).forEach(f => rimrafSync(path.join(p, f), options))
-
-  if (isWindows) {
-    // We only end up here once we got ENOTEMPTY at least once, and
-    // at this point, we are guaranteed to have removed all the kids.
-    // So, we know that it won't be ENOENT or ENOTDIR or anything else.
-    // try really hard to delete stuff on windows, because it has a
-    // PROFOUNDLY annoying habit of not closing handles promptly when
-    // files are deleted, resulting in spurious ENOTEMPTY errors.
-    const startTime = Date.now()
-    do {
-      try {
-        const ret = options.rmdirSync(p, options)
-        return ret
-      } catch {}
-    } while (Date.now() - startTime < 500) // give up after 500ms
-  } else {
-    const ret = options.rmdirSync(p, options)
-    return ret
-  }
-}
-
-module.exports = rimraf
-rimraf.sync = rimrafSync
 
 
 /***/ }),
@@ -30328,28 +28204,29 @@ rimraf.sync = rimrafSync
 
 const fs = __nccwpck_require__(61176)
 const path = __nccwpck_require__(71017)
-const util = __nccwpck_require__(73837)
-const atLeastNode = __nccwpck_require__(25995)
+const u = (__nccwpck_require__(9046).fromPromise)
 
-const nodeSupportsBigInt = atLeastNode('10.5.0')
-const stat = (file) => nodeSupportsBigInt ? fs.stat(file, { bigint: true }) : fs.stat(file)
-const statSync = (file) => nodeSupportsBigInt ? fs.statSync(file, { bigint: true }) : fs.statSync(file)
-
-function getStats (src, dest) {
+function getStats (src, dest, opts) {
+  const statFunc = opts.dereference
+    ? (file) => fs.stat(file, { bigint: true })
+    : (file) => fs.lstat(file, { bigint: true })
   return Promise.all([
-    stat(src),
-    stat(dest).catch(err => {
+    statFunc(src),
+    statFunc(dest).catch(err => {
       if (err.code === 'ENOENT') return null
       throw err
     })
   ]).then(([srcStat, destStat]) => ({ srcStat, destStat }))
 }
 
-function getStatsSync (src, dest) {
+function getStatsSync (src, dest, opts) {
   let destStat
-  const srcStat = statSync(src)
+  const statFunc = opts.dereference
+    ? (file) => fs.statSync(file, { bigint: true })
+    : (file) => fs.lstatSync(file, { bigint: true })
+  const srcStat = statFunc(src)
   try {
-    destStat = statSync(dest)
+    destStat = statFunc(dest)
   } catch (err) {
     if (err.code === 'ENOENT') return { srcStat, destStat: null }
     throw err
@@ -30357,51 +28234,97 @@ function getStatsSync (src, dest) {
   return { srcStat, destStat }
 }
 
-function checkPaths (src, dest, funcName, cb) {
-  util.callbackify(getStats)(src, dest, (err, stats) => {
-    if (err) return cb(err)
-    const { srcStat, destStat } = stats
-    if (destStat && areIdentical(srcStat, destStat)) {
-      return cb(new Error('Source and destination must not be the same.'))
+async function checkPaths (src, dest, funcName, opts) {
+  const { srcStat, destStat } = await getStats(src, dest, opts)
+  if (destStat) {
+    if (areIdentical(srcStat, destStat)) {
+      const srcBaseName = path.basename(src)
+      const destBaseName = path.basename(dest)
+      if (funcName === 'move' &&
+        srcBaseName !== destBaseName &&
+        isCosmeticRename(srcBaseName, destBaseName)) {
+        return { srcStat, destStat, isChangingCase: true }
+      }
+      throw new Error('Source and destination must not be the same.')
     }
-    if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
-      return cb(new Error(errMsg(src, dest, funcName)))
+    if (srcStat.isDirectory() && !destStat.isDirectory()) {
+      throw new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`)
     }
-    return cb(null, { srcStat, destStat })
-  })
+    if (!srcStat.isDirectory() && destStat.isDirectory()) {
+      throw new Error(`Cannot overwrite directory '${dest}' with non-directory '${src}'.`)
+    }
+  }
+
+  if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
+    throw new Error(errMsg(src, dest, funcName))
+  }
+
+  return { srcStat, destStat }
 }
 
-function checkPathsSync (src, dest, funcName) {
-  const { srcStat, destStat } = getStatsSync(src, dest)
-  if (destStat && areIdentical(srcStat, destStat)) {
-    throw new Error('Source and destination must not be the same.')
+function checkPathsSync (src, dest, funcName, opts) {
+  const { srcStat, destStat } = getStatsSync(src, dest, opts)
+
+  if (destStat) {
+    if (areIdentical(srcStat, destStat)) {
+      const srcBaseName = path.basename(src)
+      const destBaseName = path.basename(dest)
+      if (funcName === 'move' &&
+        srcBaseName !== destBaseName &&
+        isCosmeticRename(srcBaseName, destBaseName)) {
+        return { srcStat, destStat, isChangingCase: true }
+      }
+      throw new Error('Source and destination must not be the same.')
+    }
+    if (srcStat.isDirectory() && !destStat.isDirectory()) {
+      throw new Error(`Cannot overwrite non-directory '${dest}' with directory '${src}'.`)
+    }
+    if (!srcStat.isDirectory() && destStat.isDirectory()) {
+      throw new Error(`Cannot overwrite directory '${dest}' with non-directory '${src}'.`)
+    }
   }
+
   if (srcStat.isDirectory() && isSrcSubdir(src, dest)) {
     throw new Error(errMsg(src, dest, funcName))
   }
   return { srcStat, destStat }
 }
 
+// True when src and dest refer to the same inode and their basenames only
+// differ in letter case or Unicode normalization form. Some filesystems
+// (APFS, most Windows filesystems) silently normalize case and/or Unicode
+// representation, so a rename that looks like a no-op string-wise is
+// actually the user renaming a file to a visually-identical but
+// differently-encoded name, not a genuine "same path" error.
+function isCosmeticRename (srcBaseName, destBaseName) {
+  return srcBaseName.toLowerCase().normalize('NFC') === destBaseName.toLowerCase().normalize('NFC')
+}
+
 // recursively check if dest parent is a subdirectory of src.
 // It works for all file types including symlinks since it
 // checks the src and dest inodes. It starts from the deepest
 // parent and stops once it reaches the src parent or the root path.
-function checkParentPaths (src, srcStat, dest, funcName, cb) {
+async function checkParentPaths (src, srcStat, dest, funcName) {
   const srcParent = path.resolve(path.dirname(src))
   const destParent = path.resolve(path.dirname(dest))
-  if (destParent === srcParent || destParent === path.parse(destParent).root) return cb()
-  const callback = (err, destStat) => {
-    if (err) {
-      if (err.code === 'ENOENT') return cb()
-      return cb(err)
-    }
-    if (areIdentical(srcStat, destStat)) {
-      return cb(new Error(errMsg(src, dest, funcName)))
-    }
-    return checkParentPaths(src, srcStat, destParent, funcName, cb)
+  if (destParent === srcParent || destParent === path.parse(destParent).root) return
+
+  let destStat
+  try {
+    destStat = await fs.stat(destParent, { bigint: true })
+  } catch (err) {
+    // The destination parent does not exist yet, but a deeper ancestor might
+    // (e.g. when it is a symlink into the source tree). Keep walking up so the
+    // self-subdirectory check is not bypassed.
+    if (err.code === 'ENOENT') return checkParentPaths(src, srcStat, destParent, funcName)
+    throw err
   }
-  if (nodeSupportsBigInt) fs.stat(destParent, { bigint: true }, callback)
-  else fs.stat(destParent, callback)
+
+  if (areIdentical(srcStat, destStat)) {
+    throw new Error(errMsg(src, dest, funcName))
+  }
+
+  return checkParentPaths(src, srcStat, destParent, funcName)
 }
 
 function checkParentPathsSync (src, srcStat, dest, funcName) {
@@ -30410,9 +28333,12 @@ function checkParentPathsSync (src, srcStat, dest, funcName) {
   if (destParent === srcParent || destParent === path.parse(destParent).root) return
   let destStat
   try {
-    destStat = statSync(destParent)
+    destStat = fs.statSync(destParent, { bigint: true })
   } catch (err) {
-    if (err.code === 'ENOENT') return
+    // The destination parent does not exist yet, but a deeper ancestor might
+    // (e.g. when it is a symlink into the source tree). Keep walking up so the
+    // self-subdirectory check is not bypassed.
+    if (err.code === 'ENOENT') return checkParentPathsSync(src, srcStat, destParent, funcName)
     throw err
   }
   if (areIdentical(srcStat, destStat)) {
@@ -30422,26 +28348,8 @@ function checkParentPathsSync (src, srcStat, dest, funcName) {
 }
 
 function areIdentical (srcStat, destStat) {
-  if (destStat.ino && destStat.dev && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev) {
-    if (nodeSupportsBigInt || destStat.ino < Number.MAX_SAFE_INTEGER) {
-      // definitive answer
-      return true
-    }
-    // Use additional heuristics if we can't use 'bigint'.
-    // Different 'ino' could be represented the same if they are >= Number.MAX_SAFE_INTEGER
-    // See issue 657
-    if (destStat.size === srcStat.size &&
-        destStat.mode === srcStat.mode &&
-        destStat.nlink === srcStat.nlink &&
-        destStat.atimeMs === srcStat.atimeMs &&
-        destStat.mtimeMs === srcStat.mtimeMs &&
-        destStat.ctimeMs === srcStat.ctimeMs &&
-        destStat.birthtimeMs === srcStat.birthtimeMs) {
-      // heuristic answer
-      return true
-    }
-  }
-  return false
+  // stat.dev can be 0n on windows when node version >= 22.x.x
+  return destStat.ino !== undefined && destStat.dev !== undefined && destStat.ino === srcStat.ino && destStat.dev === srcStat.dev
 }
 
 // return true if dest is a subdir of src, otherwise false.
@@ -30449,7 +28357,7 @@ function areIdentical (srcStat, destStat) {
 function isSrcSubdir (src, dest) {
   const srcArr = path.resolve(src).split(path.sep).filter(i => i)
   const destArr = path.resolve(dest).split(path.sep).filter(i => i)
-  return srcArr.reduce((acc, cur, i) => acc && destArr[i] === cur, true)
+  return srcArr.every((cur, i) => destArr[i] === cur)
 }
 
 function errMsg (src, dest, funcName) {
@@ -30457,11 +28365,15 @@ function errMsg (src, dest, funcName) {
 }
 
 module.exports = {
-  checkPaths,
+  // checkPaths
+  checkPaths: u(checkPaths),
   checkPathsSync,
-  checkParentPaths,
+  // checkParent
+  checkParentPaths: u(checkParentPaths),
   checkParentPathsSync,
-  isSrcSubdir
+  // Misc
+  isSrcSubdir,
+  areIdentical
 }
 
 
@@ -30473,28 +28385,55 @@ module.exports = {
 "use strict";
 
 
-const fs = __nccwpck_require__(77758)
+const fs = __nccwpck_require__(61176)
+const u = (__nccwpck_require__(9046).fromPromise)
 
-function utimesMillis (path, atime, mtime, callback) {
-  // if (!HAS_MILLIS_RES) return fs.utimes(path, atime, mtime, callback)
-  fs.open(path, 'r+', (err, fd) => {
-    if (err) return callback(err)
-    fs.futimes(fd, atime, mtime, futimesErr => {
-      fs.close(fd, closeErr => {
-        if (callback) callback(futimesErr || closeErr)
-      })
-    })
-  })
+async function utimesMillis (path, atime, mtime) {
+  const fd = await fs.open(path, 'r+')
+
+  let error = null
+
+  try {
+    await fs.futimes(fd, atime, mtime)
+  } catch (futimesErr) {
+    error = futimesErr
+  } finally {
+    try {
+      await fs.close(fd)
+    } catch (closeErr) {
+      if (!error) error = closeErr
+    }
+  }
+
+  if (error) {
+    throw error
+  }
 }
 
 function utimesMillisSync (path, atime, mtime) {
   const fd = fs.openSync(path, 'r+')
-  fs.futimesSync(fd, atime, mtime)
-  return fs.closeSync(fd)
+
+  let error = null
+
+  try {
+    fs.futimesSync(fd, atime, mtime)
+  } catch (futimesErr) {
+    error = futimesErr
+  } finally {
+    try {
+      fs.closeSync(fd)
+    } catch (closeErr) {
+      if (!error) error = closeErr
+    }
+  }
+
+  if (error) {
+    throw error
+  }
 }
 
 module.exports = {
-  utimesMillis,
+  utimesMillis: u(utimesMillis),
   utimesMillisSync
 }
 
@@ -547439,7 +545378,7 @@ const tagmanager_1 = __nccwpck_require__(50132);
 const tasks_1 = __nccwpck_require__(47354);
 const testing_1 = __nccwpck_require__(47527);
 const texttospeech_1 = __nccwpck_require__(47291);
-const toolresults_1 = __nccwpck_require__(19421);
+const toolresults_1 = __nccwpck_require__(64793);
 const tpu_1 = __nccwpck_require__(33390);
 const trafficdirector_1 = __nccwpck_require__(57485);
 const transcoder_1 = __nccwpck_require__(35427);
@@ -710011,7 +707950,7 @@ var texttospeech_v1beta1;
 
 /***/ }),
 
-/***/ 19421:
+/***/ 64793:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
