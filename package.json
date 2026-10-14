@@ -39,7 +39,7 @@
     "semantic-release": "^19.0.5",
     "semantic-release-gitmoji": "^1.4.5",
     "ts-jest": "^29.0.3",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
