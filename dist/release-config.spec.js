@@ -3,21 +3,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const path_1 = require("path");
 describe("manual GitHub-only release boundary", () => {
-    it("keeps the preset release policy while using npm only to prepare package versions", () => {
-        const preset = require("@koj/config").releaseMaster;
+    it("keeps the gitmoji release policy with npm version preparation but no publish or auth hooks", () => {
         const config = require("../release.config");
-        const npmPlugin = require("@semantic-release/npm");
-        const presetWithoutReleaseEndpoints = preset.plugins.filter((plugin) => !["@semantic-release/npm", "@semantic-release/github"].includes(Array.isArray(plugin) ? plugin[0] : plugin));
-        expect(config.branches).toEqual(preset.branches);
-        expect(config.plugins.filter((plugin) => typeof plugin === "string"
-            ? plugin !== "@semantic-release/github"
-            : Array.isArray(plugin) && typeof plugin[0] === "string" && plugin[0] !== "@semantic-release/github")).toEqual(presetWithoutReleaseEndpoints);
-        const prepareOnly = config.plugins.find((plugin) => Array.isArray(plugin) && typeof plugin[0] === "object");
-        expect(prepareOnly).toBeDefined();
-        expect(prepareOnly[0]).toEqual({ prepare: npmPlugin.prepare });
-        expect(prepareOnly[1]).toEqual({ npmPublish: false });
+        expect(config.branches).toEqual(["master"]);
+        // The npm plugin runs only version preparation; with npmPublish: false,
+        // @semantic-release/npm >= 13 skips npm authentication entirely.
+        const npmPluginEntry = config.plugins.find((plugin) => Array.isArray(plugin) && plugin[0] === "@semantic-release/npm");
+        expect(npmPluginEntry).toBeDefined();
+        expect(npmPluginEntry[0]).toBe("@semantic-release/npm");
+        expect(npmPluginEntry[1]).toEqual({ npmPublish: false });
+        // The gitmoji analyzer must stay first and keep the release rules.
+        const gitmoji = config.plugins[0];
+        expect(Array.isArray(gitmoji)).toBe(true);
+        expect(gitmoji[0]).toBe("semantic-release-gitmoji");
+        expect(gitmoji[1].releaseRules.patch.include).toContain(":bug:");
+        expect(gitmoji[1].releaseRules.minor.include).toContain(":sparkles:");
+        expect(gitmoji[1].releaseRules.major.include).toContain(":boom:");
+        // Changelog and git plugins keep their existing behavior.
+        expect(config.plugins).toContainEqual([
+            "@semantic-release/changelog",
+            { changelogFile: "CHANGELOG.md" },
+        ]);
+        expect(config.plugins).toContainEqual([
+            "@semantic-release/git",
+            {
+                assets: ["CHANGELOG.md", "package.json", "package-lock.json"],
+                message: ":bookmark: Release v${nextRelease.version} [skip ci]",
+            },
+        ]);
+        // Issues are disabled here; never hide the release error with a 410.
         const githubPlugin = config.plugins.find((plugin) => Array.isArray(plugin) && plugin[0] === "@semantic-release/github");
-        expect(githubPlugin).toEqual(["@semantic-release/github", { failComment: false, successComment: false }]);
+        expect(githubPlugin).toEqual([
+            "@semantic-release/github",
+            { failComment: false, successComment: false },
+        ]);
     });
     it("does not pass an npm token to the manual GitHub release job", () => {
         const workflow = (0, fs_1.readFileSync)((0, path_1.resolve)(__dirname, "../.github/workflows/release.yml"), "utf8");
