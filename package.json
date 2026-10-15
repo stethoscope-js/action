@@ -35,7 +35,7 @@
     "@types/jest": "30.0.0",
     "@types/node": "26.6.5",
     "@types/recursive-readdir": "^2.2.1",
-    "@vercel/ncc": "^0.34.0",
+    "@vercel/ncc": "^0.45.0",
     "fs-extra": "^11.4.1",
     "jest": "30.5.2",
     "semantic-release": "^25.0.9",
