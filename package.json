@@ -52,7 +52,8 @@
   "overrides": {
     "@toplast/lastfm": {
       "axios": "^1.20.0"
-    }
+    },
+    "npm": "^11.21.1"
   },
   "jest": {
     "preset": "ts-jest",
