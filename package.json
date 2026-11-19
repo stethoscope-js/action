@@ -38,7 +38,7 @@
     "@vercel/ncc": "^0.45.0",
     "fs-extra": "^11.4.1",
     "jest": "30.5.2",
-    "semantic-release": "^25.0.9",
+    "semantic-release": "^26.0.1",
     "semantic-release-gitmoji": "^1.6.9",
     "ts-jest": "^29.0.3",
     "typescript": "5.9.3"
